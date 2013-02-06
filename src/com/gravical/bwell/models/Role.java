@@ -4,13 +4,32 @@
  */
 package com.gravical.bwell.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Bruce
  */
-public class Role {
-    private static String roleName;
-    private static int roleEnum;
+public class Role implements Serializable {
+    private String roleName;
+    private int roleEnum;
     
-    
+    public Role(int roleId, String roleName) {
+        this.roleEnum = roleId;
+        this.roleName = roleName;
+    }
+
+    /**
+     * @return the roleName
+     */
+    public String getRoleName() {
+        return roleName;
+    }
+
+    /**
+     * @return the roleEnum
+     */
+    public int getRoleEnum() {
+        return roleEnum;
+    }
 }

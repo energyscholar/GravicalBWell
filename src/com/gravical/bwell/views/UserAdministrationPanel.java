@@ -4,6 +4,8 @@
  */
 package com.gravical.bwell.views;
 
+import com.gravical.bwell.controller.MVCController;
+import com.gravical.bwell.models.Users;
 import java.awt.event.ActionListener;
 
 /**
@@ -11,14 +13,26 @@ import java.awt.event.ActionListener;
  * @author User
  */
 public class UserAdministrationPanel extends javax.swing.JPanel {
-
+    
+    
+    
     /**
      * Creates new form UserAdministrationPanel
      */
     public UserAdministrationPanel() {
         initComponents();
+        //int userCount = MVCController.getUsers().size();
+        
     }
 
+    public void updatePanel() {
+        int userSize = 0;
+        userSize = MVCController.getUsers().size();
+        
+        this.userCount.setText("" + userSize);
+        
+    }
+    
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
     }    
@@ -52,6 +66,8 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
         HelpButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        userCountLabel = new javax.swing.JLabel();
+        userCount = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -70,6 +86,8 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -80,7 +98,7 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                 java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -91,15 +109,25 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getColumnModel().getColumn(0).setResizable(false);
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(4);
+        jTable1.getColumnModel().getColumn(0).setHeaderValue("Active");
         jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(8);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(12);
+        jTable1.getColumnModel().getColumn(1).setHeaderValue("Username");
         jTable1.getColumnModel().getColumn(2).setResizable(false);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(12);
+        jTable1.getColumnModel().getColumn(2).setHeaderValue("Real Name");
         jTable1.getColumnModel().getColumn(3).setResizable(false);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(10);
+        jTable1.getColumnModel().getColumn(3).setHeaderValue("Roles");
+
+        userCountLabel.setText("User Count:");
+
+        userCount.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,11 +145,15 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(LogoutButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(HelpButton))
+                        .addComponent(HelpButton)
+                        .addGap(115, 115, 115)
+                        .addComponent(userCountLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userCount))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,10 +164,12 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                     .addComponent(UserProfileButton)
                     .addComponent(SettingsButton)
                     .addComponent(LogoutButton)
-                    .addComponent(HelpButton))
+                    .addComponent(HelpButton)
+                    .addComponent(userCountLabel)
+                    .addComponent(userCount))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,5 +180,7 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
     private javax.swing.JButton UserProfileButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel userCount;
+    private javax.swing.JLabel userCountLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,10 +12,10 @@ import java.io.Serializable;
  */
 public class Role implements Serializable {
     private String roleName;
-    private int roleEnum;
+    private int roleId;
     
     public Role(int roleId, String roleName) {
-        this.roleEnum = roleId;
+        this.roleId = roleId;
         this.roleName = roleName;
     }
 
@@ -30,6 +30,12 @@ public class Role implements Serializable {
      * @return the roleEnum
      */
     public int getRoleEnum() {
-        return roleEnum;
+        return roleId;
     }
+    
+    public String toString() {
+        String returnValue = "["+this.roleId+";"+this.roleName+"]";
+        return returnValue;
+    }
+    
 }

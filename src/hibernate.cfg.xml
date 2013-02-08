@@ -2,11 +2,14 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
-    <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">SNpassword</property>
-    <class-cache class="com.gravical.bwell.models.User" include="all" usage="read-only"/>
+    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
+    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+    <property name="hibernate.connection.url">jdbc:derby://localhost:1527/sample</property>
+    <property name="hibernate.connection.username">app</property>
+    <property name="hibernate.connection.password">app</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="com/gravical/bwell/models/Roles.hbm.xml"/>
+    <mapping resource="com/gravical/bwell/models/Users.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

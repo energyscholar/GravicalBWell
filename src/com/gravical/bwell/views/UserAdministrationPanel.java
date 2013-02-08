@@ -5,7 +5,6 @@
 package com.gravical.bwell.views;
 
 import com.gravical.bwell.controller.MVCController;
-import com.gravical.bwell.models.Users;
 import java.awt.event.ActionListener;
 
 /**

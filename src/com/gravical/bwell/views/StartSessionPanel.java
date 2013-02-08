@@ -4,6 +4,8 @@
  */
 package com.gravical.bwell.views;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author User
@@ -17,6 +19,11 @@ public class StartSessionPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void HomeButtonActionListener(ActionListener a) {
+        HomeButton.addActionListener(a);
+    }    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,17 +33,28 @@ public class StartSessionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        HomeButton = new javax.swing.JButton();
+
+        HomeButton.setText("Home");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(HomeButton)
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(HomeButton)
+                .addContainerGap(266, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton HomeButton;
     // End of variables declaration//GEN-END:variables
 }

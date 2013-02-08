@@ -1,8 +1,8 @@
 package com.gravical.bwell.controller;
 
 import com.gravical.bwell.db.PopulateSampleData;
-import com.gravical.bwell.models.Role;
-import com.gravical.bwell.models.User;
+//import com.gravical.bwell.models.Roles;
+//import com.gravical.bwell.models.Users;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -60,6 +60,8 @@ public class MVCController {
     private com.gravical.bwell.views.ReviewSessionPanel reviewSessionPanel = new com.gravical.bwell.views.ReviewSessionPanel();
     private com.gravical.bwell.views.AddClientPanel addClientPanel = new com.gravical.bwell.views.AddClientPanel();
     private com.gravical.bwell.views.StartInRoomSessionPanel startInRoomSessionPanel = new com.gravical.bwell.views.StartInRoomSessionPanel();
+    private com.gravical.bwell.views.AdminMenuPanel adminMenuPanel = new com.gravical.bwell.views.AdminMenuPanel();
+    private com.gravical.bwell.views.AdminRolesPanel adminRolesPanel = new com.gravical.bwell.views.AdminRolesPanel();
     private PopulateSampleData populateSampleData;
     private static  ArrayList users;
     private static ArrayList roles;
@@ -103,6 +105,24 @@ public class MVCController {
         @Override
         public void actionPerformed(ActionEvent ae) {
                 changeContentPane(settingsPanel);
+        }
+    } ; 
+        
+    // Listen for user request to go to admin menu
+    ActionListener adminMenuActionListener = new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+                changeContentPane(adminMenuPanel);
+        }
+    } ; 
+        
+    // Listen for user request to edit roles (admin only)
+    ActionListener adminRolesActionListener = new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+                changeContentPane(adminRolesPanel);
         }
     } ; 
         
@@ -162,19 +182,31 @@ public class MVCController {
         }
     } ; 
 
+    // this will be called by an admin user request to edit users
+    ActionListener usersAdministrationActionListener = new ActionListener() {
+                
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+                changeContentPane(userAdministrationPanel);
+        }
+    } ; 
+
+    // this will be called by a user wishing to review sessions
+    ActionListener reviewSessionActionListener = new ActionListener() {
+                
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+                changeContentPane(reviewEncountersPanel);
+        }
+    } ; 
+
     
         
         loginPanel.GotoMainMenuActionListener(successfulLoginActionListener);
 
         mainMenuPanel.LogoutButtonActionListener(logoutActionListener);
 
-        mainMenuPanel.AdminButtonActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                changeContentPane(userAdministrationPanel);
-                userAdministrationPanel.updatePanel();
-            }
-        });
+        mainMenuPanel.AdminButtonActionListener(adminMenuActionListener);
 
         mainMenuPanel.SuperviseButtonActionListener(new ActionListener() {
             @Override
@@ -183,12 +215,7 @@ public class MVCController {
             }
         });
 
-        mainMenuPanel.ReviewOldSessionsButtonActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                changeContentPane(reviewEncountersPanel);
-            }
-        });
+        mainMenuPanel.ReviewOldSessionsButtonActionListener(reviewSessionActionListener);
 
         mainMenuPanel.SessionButtonActionListener(new ActionListener() {
             @Override
@@ -197,6 +224,13 @@ public class MVCController {
             }
         });
 
+        adminMenuPanel.AdminUsersButtonActionListener(usersAdministrationActionListener);
+        adminMenuPanel.editRolesButtonActionListener(adminRolesActionListener);
+        
+        settingsPanel.HomeButtonActionListener(homeActionListener);
+        
+        startSessionPanel.HomeButtonActionListener(homeActionListener);
+        
         userAdministrationPanel.HomeButtonActionListener(homeActionListener);
         userAdministrationPanel.SettingsButtonActionListener(settingsActionListener);
         userAdministrationPanel.LogoutButtonActionListener(logoutActionListener);
@@ -211,8 +245,11 @@ public class MVCController {
 //        startSessionPanel.StartInRoomSessionButtonActionListener(startInRoomSessionActionListener);
         
 //        startSessionPanel.HomeButtonActionListener(homeActionListener);
-        
+        adminRolesPanel.AdminMenuButtonActionListener(adminMenuActionListener);
+        adminRolesPanel.MainMenuButtonActionListener(homeActionListener);
+                
         addClientPanel.HomeButtonActionListener(homeActionListener);
+
         
         liveSessionPanel.HomeButtonActionListener(homeActionListener);
         

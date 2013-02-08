@@ -42,10 +42,10 @@ public class PopulateSampleData {
         roles.add(intern);
         roles.add(client);
 
-        User user1 = new User(1, "admin1","password",  "Ad", "Min", admin);
-        User user2 = new User(2, "super1","password",  "Super", "Viser", supervisor);
-        User user3 = new User(3, "intern1","password",  "In", "tern", intern);
-        User user4 = new User(4, "client1","password",  "Cli", "Ent", client);
+        User user1 = new User(1, "admin1","password",  "Ad", "Min", admin.getRoleEnum());
+        User user2 = new User(2, "super1","password",  "Super", "Viser", supervisor.getRoleEnum());
+        User user3 = new User(3, "intern1","password",  "In", "tern", intern.getRoleEnum());
+        User user4 = new User(4, "client1","password",  "Cli", "Ent", client.getRoleEnum());
         users.add(user1);
         users.add(user2);
         users.add(user3);

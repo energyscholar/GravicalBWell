@@ -32,16 +32,7 @@ public class User implements Serializable{
         
         return passwordToHash;
     }
-    
-    public User(int userId, String userName, String newHashPassword, String firstName, String lastName, Role newRole) {
-        this.user_id = userId;
-        this.username = userName;
-        this.hashPassword = newHashPassword;
-        this.first_name = firstName;
-        this.last_name = lastName;
-        this.role = newRole;
-    }
-    
+
     /**
      * @return the username
      */

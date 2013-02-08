@@ -4,11 +4,13 @@
  */
 package com.gravical.bwell.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author User
  */
-public class User {
+public class User implements Serializable{
     private String username;
     private String first_name;
     private String last_name;
@@ -29,6 +31,15 @@ public class User {
     public static String hashPassword(String passwordToHash) {
         
         return passwordToHash;
+    }
+    
+    public User(int userId, String userName, String newHashPassword, String firstName, String lastName, Role newRole) {
+        this.user_id = userId;
+        this.username = userName;
+        this.hashPassword = newHashPassword;
+        this.first_name = firstName;
+        this.last_name = lastName;
+        this.role = newRole;
     }
     
     /**

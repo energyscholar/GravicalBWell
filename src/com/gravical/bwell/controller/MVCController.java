@@ -1,6 +1,10 @@
 package com.gravical.bwell.controller;
 
+import com.gravical.bwell.db.PopulateSampleData;
+import com.gravical.bwell.models.Role;
+import com.gravical.bwell.models.User;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -12,6 +16,34 @@ import javax.swing.UIManager;
 
 
 public class MVCController {
+
+    /**
+     * @return the users
+     */
+    public static ArrayList getUsers() {
+        return users;
+    }
+
+    /**
+     * @param aUsers the users to set
+     */
+    public static void setUsers(ArrayList aUsers) {
+        users = aUsers;
+    }
+
+    /**
+     * @return the roles
+     */
+    public static ArrayList getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param aRoles the roles to set
+     */
+    public static void setRoles(ArrayList aRoles) {
+        roles = aRoles;
+    }
 //  private views.Frame frame = new views.Frame();
 
     private JFrame frame = new JFrame();
@@ -28,7 +60,16 @@ public class MVCController {
     private com.gravical.bwell.views.ReviewSessionPanel reviewSessionPanel = new com.gravical.bwell.views.ReviewSessionPanel();
     private com.gravical.bwell.views.AddClientPanel addClientPanel = new com.gravical.bwell.views.AddClientPanel();
     private com.gravical.bwell.views.StartInRoomSessionPanel startInRoomSessionPanel = new com.gravical.bwell.views.StartInRoomSessionPanel();
+    private PopulateSampleData populateSampleData;
+    private static  ArrayList users;
+    private static ArrayList roles;
 
+    {
+          populateSampleData = new PopulateSampleData();
+          this.setRoles(PopulateSampleData.getRoles());
+          this.setUsers(PopulateSampleData.getUsers()); 
+          System.out.println("MVCController users.size() == " + users.size());
+    }
     
 //  private models.Data data = new models.Data();
     public void init() {
@@ -113,9 +154,10 @@ public class MVCController {
 
     // this will be called by a successful login attempt.
     ActionListener successfulLoginActionListener = new ActionListener() {
-
+                
         @Override
         public void actionPerformed(ActionEvent ae) {
+                System.out.println("successfulLoginActionListener");
                 changeContentPane(mainMenuPanel);
         }
     } ; 
@@ -130,6 +172,7 @@ public class MVCController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 changeContentPane(userAdministrationPanel);
+                userAdministrationPanel.updatePanel();
             }
         });
 
@@ -213,9 +256,7 @@ public class MVCController {
         reviewEncountersPanel.CancelButtonActionListener(homeActionListener);
         reviewEncountersPanel.UserProfileActionListener(userProfileActionListener);
         reviewEncountersPanel.ReviewEncounterActionListener(reviewEncounterActionListener);
-
         reviewSessionPanel.ReviewMoreSessionsActionListener(reviewEncounterActionListener);        
-
         settingsPanel.ApplySettingsButtonActionListener(new ActionListener() {
 
             @Override
@@ -225,11 +266,8 @@ public class MVCController {
         });
 
         settingsPanel.CancelButtonActionListener(homeActionListener);
-
         userProfilePanel.HomeButtonActionListener(homeActionListener);
-
-        superviseEncounterPanel.HomeButtonActionListener(homeActionListener);
-        
+        superviseEncounterPanel.HomeButtonActionListener(homeActionListener);        
         reviewSessionPanel.HomeButtonActionListener(homeActionListener);        
     }
 
@@ -250,4 +288,14 @@ public class MVCController {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * @return the populateSampleData
+     */
+    public PopulateSampleData getPopulateSampleData() {
+        return populateSampleData;
+    }
+
+
 }

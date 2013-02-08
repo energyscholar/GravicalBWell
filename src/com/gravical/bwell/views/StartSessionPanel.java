@@ -22,6 +22,15 @@ public class StartSessionPanel extends javax.swing.JPanel {
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
     }    
+
+    public void startInRoomSessionButtonActionListener(ActionListener a) {
+        startInRoomSessionButton.addActionListener(a);
+    }    
+    
+    public void startRemoteSessionButtonActionListener(ActionListener a) {
+        startRemoteSessionButton.addActionListener(a);
+    }    
+    
     
     
     /**
@@ -34,27 +43,88 @@ public class StartSessionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         HomeButton = new javax.swing.JButton();
+        newSessionLabel = new javax.swing.JLabel();
+        clientsLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        addClientButton = new javax.swing.JButton();
+        startRemoteSessionButton = new javax.swing.JButton();
+        startInRoomSessionButton = new javax.swing.JButton();
 
         HomeButton.setText("Home");
+
+        newSessionLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        newSessionLabel.setText("New Session");
+
+        clientsLabel.setText("Clients");
+
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "John Doe", "Jane Doe", "John Smith", "Jane Smith" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        addClientButton.setText("Add Client");
+
+        startRemoteSessionButton.setText("Start Session");
+
+        startInRoomSessionButton.setText("Start In Room Session");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(HomeButton)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(HomeButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(292, 292, 292)
+                        .addComponent(newSessionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(clientsLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(startRemoteSessionButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addClientButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(startInRoomSessionButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(354, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(HomeButton)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newSessionLabel)
+                .addGap(18, 18, 18)
+                .addComponent(clientsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addClientButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(startRemoteSessionButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(startInRoomSessionButton)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HomeButton;
+    private javax.swing.JButton addClientButton;
+    private javax.swing.JLabel clientsLabel;
+    private javax.swing.JList jList1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel newSessionLabel;
+    private javax.swing.JButton startInRoomSessionButton;
+    private javax.swing.JButton startRemoteSessionButton;
     // End of variables declaration//GEN-END:variables
 }

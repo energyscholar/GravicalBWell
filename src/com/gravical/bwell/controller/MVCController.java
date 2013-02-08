@@ -56,10 +56,10 @@ public class MVCController {
     private com.gravical.bwell.views.ReviewEncountersPanel reviewEncountersPanel = new com.gravical.bwell.views.ReviewEncountersPanel();
     private com.gravical.bwell.views.UserProfilePanel userProfilePanel = new com.gravical.bwell.views.UserProfilePanel();
     private com.gravical.bwell.views.StartSessionPanel startSessionPanel = new com.gravical.bwell.views.StartSessionPanel();
-    private com.gravical.bwell.views.LiveSessionPanel liveSessionPanel = new com.gravical.bwell.views.LiveSessionPanel();
     private com.gravical.bwell.views.ReviewSessionPanel reviewSessionPanel = new com.gravical.bwell.views.ReviewSessionPanel();
     private com.gravical.bwell.views.AddClientPanel addClientPanel = new com.gravical.bwell.views.AddClientPanel();
-    private com.gravical.bwell.views.StartInRoomSessionPanel startInRoomSessionPanel = new com.gravical.bwell.views.StartInRoomSessionPanel();
+    private com.gravical.bwell.views.InRoomSessionPanel inRoomSessionPanel = new com.gravical.bwell.views.InRoomSessionPanel();
+    private com.gravical.bwell.views.RemoteSessionPanel remoteSessionPanel = new com.gravical.bwell.views.RemoteSessionPanel();
     private com.gravical.bwell.views.AdminMenuPanel adminMenuPanel = new com.gravical.bwell.views.AdminMenuPanel();
     private com.gravical.bwell.views.AdminRolesPanel adminRolesPanel = new com.gravical.bwell.views.AdminRolesPanel();
     private PopulateSampleData populateSampleData;
@@ -140,7 +140,7 @@ public class MVCController {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-                changeContentPane(startInRoomSessionPanel);
+                changeContentPane(inRoomSessionPanel);
         }
     } ; 
 
@@ -155,23 +155,37 @@ public class MVCController {
 
     
     // Start a remote session.  Multipoint not yet supported
-    ActionListener startSessionActionListener = new ActionListener() {
+    ActionListener startRemoteSessionActionListener = new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            changeContentPane(liveSessionPanel);
+            changeContentPane(remoteSessionPanel);
         }
     } ; 
 
+    
     // Start an in-room session.  Probably will be recorded.
     ActionListener startInRoomSessionActionListener = new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Start In-room Session not supported yet");
+                changeContentPane(inRoomSessionPanel);
         }
     } ; 
 
+    // Start an in-room session.  Probably will be recorded.
+    ActionListener remoteSessionActionListener = new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            System.out.println("startRemoteSessionActionListener");
+                changeContentPane(remoteSessionPanel);
+        }
+    } ; 
+
+    
+    
+    
     // this will be called by a successful login attempt.
     ActionListener successfulLoginActionListener = new ActionListener() {
                 
@@ -230,6 +244,11 @@ public class MVCController {
         settingsPanel.HomeButtonActionListener(homeActionListener);
         
         startSessionPanel.HomeButtonActionListener(homeActionListener);
+        startSessionPanel.startInRoomSessionButtonActionListener(startInRoomSessionActionListener);
+        startSessionPanel.startRemoteSessionButtonActionListener(startRemoteSessionActionListener);
+
+        this.inRoomSessionPanel.HomeButtonActionListener(homeActionListener);
+        this.remoteSessionPanel.HomeButtonActionListener(homeActionListener);
         
         userAdministrationPanel.HomeButtonActionListener(homeActionListener);
         userAdministrationPanel.SettingsButtonActionListener(settingsActionListener);
@@ -251,7 +270,7 @@ public class MVCController {
         addClientPanel.HomeButtonActionListener(homeActionListener);
 
         
-        liveSessionPanel.HomeButtonActionListener(homeActionListener);
+//        liveSessionPanel.HomeButtonActionListener(homeActionListener);
         
         supervisePanel.HomeButtonActionListener(homeActionListener);
         supervisePanel.UserProfileButtonActionListener(new ActionListener() {

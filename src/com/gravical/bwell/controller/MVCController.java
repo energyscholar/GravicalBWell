@@ -125,6 +125,7 @@ public class MVCController {
                 changeContentPane(adminRolesPanel);
         }
     } ; 
+<<<<<<< HEAD
     
    // Listen for user request to edit roles (admin only)
     ActionListener executeRolesQueryActionListener = new ActionListener() {
@@ -139,6 +140,8 @@ public class MVCController {
     
      
 //showRolesButtonActionListener    
+=======
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
         
     // Listen for user request to visit User Profile screen
     ActionListener userProfileActionListener = new ActionListener() {
@@ -278,9 +281,14 @@ public class MVCController {
 //        startSessionPanel.StartInRoomSessionButtonActionListener(startInRoomSessionActionListener);
         
 //        startSessionPanel.HomeButtonActionListener(homeActionListener);
+<<<<<<< HEAD
         adminRolesPanel.adminMenuButtonActionListener(adminMenuActionListener);
         adminRolesPanel.mainMenuButtonActionListener(homeActionListener);
         adminRolesPanel.executeRolesQueryActionListener(executeRolesQueryActionListener);
+=======
+        adminRolesPanel.AdminMenuButtonActionListener(adminMenuActionListener);
+        adminRolesPanel.MainMenuButtonActionListener(homeActionListener);
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
                 
         addClientPanel.HomeButtonActionListener(homeActionListener);
 

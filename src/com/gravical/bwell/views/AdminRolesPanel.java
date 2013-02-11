@@ -21,6 +21,7 @@ import org.hibernate.Session;
 public class AdminRolesPanel extends javax.swing.JPanel {
 
     private static String QUERY_ALL_ROLES = "from Roles order by role_id";
+<<<<<<< HEAD
 
     /**
      * @return the QUERY_ALL_ROLES
@@ -28,6 +29,8 @@ public class AdminRolesPanel extends javax.swing.JPanel {
     public String getQUERY_ALL_ROLES() {
         return QUERY_ALL_ROLES;
     }
+=======
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
     /**
      * Creates new form AdminRoles
      */
@@ -35,6 +38,7 @@ public class AdminRolesPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+<<<<<<< HEAD
     public void mainMenuButtonActionListener(ActionListener a) {
         this.MainMenuButton.addActionListener(a);
     }    
@@ -52,6 +56,23 @@ public class AdminRolesPanel extends javax.swing.JPanel {
     public void executeHQLQuery(String hql) {
     try {
         System.out.println("executeHQLQuery started");
+=======
+    public void MainMenuButtonActionListener(ActionListener a) {
+        this.MainMenuButton.addActionListener(a);
+    }    
+
+    public void AdminMenuButtonActionListener(ActionListener a) {
+        this.AdminHomeButton.addActionListener(a);
+    }    
+    
+    private void runQueryAllRoles() {
+        executeHQLQuery(QUERY_ALL_ROLES);
+    }
+
+private void executeHQLQuery(String hql) {
+    try {
+        System.out.println("executeHQLQuery failed");
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query q = session.createQuery(hql);
@@ -59,7 +80,10 @@ public class AdminRolesPanel extends javax.swing.JPanel {
         displayResult(resultList);
         session.getTransaction().commit();
     } catch (HibernateException he) {
+<<<<<<< HEAD
         System.out.println("executeHQLQuery failed");
+=======
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
         he.printStackTrace();
     }
 }  

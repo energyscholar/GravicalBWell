@@ -17,18 +17,32 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+<<<<<<< HEAD
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+=======
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
                       <Component id="jLabel1" min="-2" pref="131" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                       <Component id="LogoutButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                       <Component id="AdminMenuButton" min="-2" pref="93" max="-2" attributes="0"/>
                       <EmptySpace pref="55" max="32767" attributes="0"/>
                       <Component id="SessionButton" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+=======
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="AdminMenuButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <Component id="SessionButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+>>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
                       <Component id="SuperviseButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Component id="ReviewEncountersButton" min="-2" max="-2" attributes="0"/>

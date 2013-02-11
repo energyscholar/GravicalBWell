@@ -96,7 +96,10 @@ public class Users  implements java.io.Serializable {
         this.roleId = roleId;
     }
 
-
+    public String toString() {
+        String returnValue = "[" +userId+";"+username+";"+firstName+";"+lastName+";"+passwordHashed+";"+roleId + ";]"  ;
+        return returnValue;
+    }
 
 
 }

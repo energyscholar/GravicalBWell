@@ -38,19 +38,19 @@ public class UsersTest {
     public void testUser() {
         String expectedValue1 = "[1;user1;us;er1;password;5;]";
         String actualValue1 = user1.toString() ;
-        assertEquals( actualValue1, expectedValue1);
+        assertEquals(expectedValue1, actualValue1);
         String expectedValue2 = "[2;user2;us;er2;password;4;]";
         String actualValue2 = user2.toString() ;
-        assertEquals( actualValue2, expectedValue2);
+        assertEquals( expectedValue2,actualValue2);
         String expectedValue3 = "[3;user3;us;er3;password;3;]";
         String actualValue3 = user3.toString() ;
-        assertEquals( actualValue3, expectedValue3);
+        assertEquals( expectedValue3,actualValue3);
         String expectedValue4 = "[4;user4;us;er4;password;2;]";
         String actualValue4 = user4.toString() ;
-        assertEquals( actualValue4, expectedValue4);
+        assertEquals( expectedValue4,actualValue4);
         String expectedValue5 = "[5;user5;us;er5;password;1;]";
         String actualValue5 = user5.toString() ;
-        assertEquals( actualValue5, expectedValue5);
+        assertEquals( expectedValue5,actualValue5);
     }
     
     @AfterClass

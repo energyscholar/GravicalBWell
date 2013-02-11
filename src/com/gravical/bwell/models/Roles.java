@@ -52,8 +52,10 @@ public class Roles  implements java.io.Serializable {
         this.roleName = roleName;
     }
 
-
-
+    @Override 
+    public String toString() {
+        return "["+this.roleId+";"+this.roleName+"]";
+    }
 
 }
 

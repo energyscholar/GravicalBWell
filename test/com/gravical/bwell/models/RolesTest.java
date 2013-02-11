@@ -22,14 +22,12 @@ public class RolesTest {
     }
     
     @BeforeClass
-    public static void setUpClass() {
-        
+    public static void setUpClass() {        
         role1 = new Roles(1,"Administrator");
         role2 = new Roles(2,"Superviser");
         role3 = new Roles(3,"Intern");
         role4 = new Roles(4,"Client");
-        role5 = new Roles(5,"Guest");        
-         
+        role5 = new Roles(5,"Guest");                 
  }
     
     @AfterClass
@@ -65,5 +63,4 @@ public class RolesTest {
         result = role5.toString();
         assertEquals(expResult, result);
     }
-
 }

@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /**
- * MVCController is the Controller for this MVC-style java application.  This class holds Event Handlers for all GUI elements.
+ * MVCController is the Controller for this MVC-style java application. This
+ * class holds Event Handlers for all GUI elements.
  * 
-**/
-
-
+*
+ */
 public class MVCController {
 
     /**
@@ -45,7 +45,6 @@ public class MVCController {
         roles = aRoles;
     }
 //  private views.Frame frame = new views.Frame();
-
     private JFrame frame = new JFrame();
     private com.gravical.bwell.views.LoginPanel loginPanel = new com.gravical.bwell.views.LoginPanel();
     private com.gravical.bwell.views.MainMenuPanel mainMenuPanel = new com.gravical.bwell.views.MainMenuPanel();
@@ -63,176 +62,159 @@ public class MVCController {
     private com.gravical.bwell.views.AdminMenuPanel adminMenuPanel = new com.gravical.bwell.views.AdminMenuPanel();
     private com.gravical.bwell.views.AdminRolesPanel adminRolesPanel = new com.gravical.bwell.views.AdminRolesPanel();
     private PopulateSampleData populateSampleData;
-    private static  ArrayList users;
+    private static ArrayList users;
     private static ArrayList roles;
 
     {
-          populateSampleData = new PopulateSampleData();
-          this.setRoles(PopulateSampleData.getRoles());
-          this.setUsers(PopulateSampleData.getUsers()); 
-          System.out.println("MVCController users.size() == " + users.size());
+        populateSampleData = new PopulateSampleData();
+        this.setRoles(PopulateSampleData.getRoles());
+        this.setUsers(PopulateSampleData.getUsers());
+        System.out.println("MVCController users.size() == " + users.size());
     }
-    
+
 //  private models.Data data = new models.Data();
     public void init() {
         frame.setSize(800, 600);
         frame.setContentPane(loginPanel);
         //frame.add(loginPanel);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
 
-    // Listens for user pressing any Logout button
-    ActionListener logoutActionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            // TODO: Write logout code
+        // Listens for user pressing any Logout button
+        ActionListener logoutActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // TODO: Write logout code
                 changeContentPane(loginPanel);
-        }
-    } ; 
+            }
+        };
 
-    // Listen for user request to go to Home, aka Main Menu
-    ActionListener homeActionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Listen for user request to go to Home, aka Main Menu
+        ActionListener homeActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(mainMenuPanel);
-        }
-    } ; 
+            }
+        };
 
-    // Listen for user request to change Media settings
-    ActionListener settingsActionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Listen for user request to change Media settings
+        ActionListener settingsActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(settingsPanel);
-        }
-    } ; 
-        
-    // Listen for user request to go to admin menu
-    ActionListener adminMenuActionListener = new ActionListener() {
+            }
+        };
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Listen for user request to go to admin menu
+        ActionListener adminMenuActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(adminMenuPanel);
-        }
-    } ; 
-        
-    // Listen for user request to edit roles (admin only)
-    ActionListener adminRolesActionListener = new ActionListener() {
+            }
+        };
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Listen for user request to edit roles (admin only)
+        ActionListener adminRolesActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(adminRolesPanel);
-        }
-    } ; 
-<<<<<<< HEAD
-    
-   // Listen for user request to edit roles (admin only)
-    ActionListener executeRolesQueryActionListener = new ActionListener() {
+            }
+        };
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Listen for user request to edit roles (admin only)
+        ActionListener executeRolesQueryActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
 
-               System.out.println("ExecuteRolesQueryActionListener");
-            adminRolesPanel.executeHQLQuery(adminRolesPanel.getQUERY_ALL_ROLES() );
-        }
-    } ; 
-    
-     
+                System.out.println("ExecuteRolesQueryActionListener");
+                adminRolesPanel.executeHQLQuery(adminRolesPanel.getQUERY_ALL_ROLES());
+            }
+        };
+
+
 //showRolesButtonActionListener    
-=======
->>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
-        
-    // Listen for user request to visit User Profile screen
-    ActionListener userProfileActionListener = new ActionListener() {
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Listen for user request to visit User Profile screen
+        ActionListener userProfileActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(userProfilePanel);
-        }
-    } ; 
-        
-    // Bring up the screen to add a new client.
-    ActionListener addClientActionListener = new ActionListener() {
+            }
+        };
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // Bring up the screen to add a new client.
+        ActionListener addClientActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(inRoomSessionPanel);
-        }
-    } ; 
+            }
+        };
 
-    // Review a previous encounter
-    ActionListener reviewEncounterActionListener = new ActionListener() {
+        // Review a previous encounter
+        ActionListener reviewEncounterActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                changeContentPane(reviewSessionPanel);
+            }
+        };
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            changeContentPane(reviewSessionPanel);
-        }
-    } ; 
 
-    
-    // Start a remote session.  Multipoint not yet supported
-    ActionListener startRemoteSessionActionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            changeContentPane(remoteSessionPanel);
-        }
-    } ; 
-
-    
-    // Start an in-room session.  Probably will be recorded.
-    ActionListener startInRoomSessionActionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-                changeContentPane(inRoomSessionPanel);
-        }
-    } ; 
-
-    // Start an in-room session.  Probably will be recorded.
-    ActionListener remoteSessionActionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            System.out.println("startRemoteSessionActionListener");
+        // Start a remote session.  Multipoint not yet supported
+        ActionListener startRemoteSessionActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(remoteSessionPanel);
-        }
-    } ; 
+            }
+        };
 
-    
-    
-    
-    // this will be called by a successful login attempt.
-    ActionListener successfulLoginActionListener = new ActionListener() {
-                
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+
+        // Start an in-room session.  Probably will be recorded.
+        ActionListener startInRoomSessionActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                changeContentPane(inRoomSessionPanel);
+            }
+        };
+
+        // Start an in-room session.  Probably will be recorded.
+        ActionListener remoteSessionActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("startRemoteSessionActionListener");
+                changeContentPane(remoteSessionPanel);
+            }
+        };
+
+
+
+
+        // this will be called by a successful login attempt.
+        ActionListener successfulLoginActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 System.out.println("successfulLoginActionListener");
                 changeContentPane(mainMenuPanel);
-        }
-    } ; 
+            }
+        };
 
-    // this will be called by an admin user request to edit users
-    ActionListener usersAdministrationActionListener = new ActionListener() {
-                
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // this will be called by an admin user request to edit users
+        ActionListener usersAdministrationActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(userAdministrationPanel);
-        }
-    } ; 
+            }
+        };
 
-    // this will be called by a user wishing to review sessions
-    ActionListener reviewSessionActionListener = new ActionListener() {
-                
-        @Override
-        public void actionPerformed(ActionEvent ae) {
+        // this will be called by a user wishing to review sessions
+        ActionListener reviewSessionActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 changeContentPane(reviewEncountersPanel);
-        }
-    } ; 
+            }
+        };
 
-    
-        
+
+
         loginPanel.GotoMainMenuActionListener(successfulLoginActionListener);
 
         mainMenuPanel.LogoutButtonActionListener(logoutActionListener);
@@ -257,16 +239,16 @@ public class MVCController {
 
         adminMenuPanel.AdminUsersButtonActionListener(usersAdministrationActionListener);
         adminMenuPanel.editRolesButtonActionListener(adminRolesActionListener);
-        
+
         settingsPanel.HomeButtonActionListener(homeActionListener);
-        
+
         startSessionPanel.HomeButtonActionListener(homeActionListener);
         startSessionPanel.startInRoomSessionButtonActionListener(startInRoomSessionActionListener);
         startSessionPanel.startRemoteSessionButtonActionListener(startRemoteSessionActionListener);
 
         this.inRoomSessionPanel.HomeButtonActionListener(homeActionListener);
         this.remoteSessionPanel.HomeButtonActionListener(homeActionListener);
-        
+
         userAdministrationPanel.HomeButtonActionListener(homeActionListener);
         userAdministrationPanel.SettingsButtonActionListener(settingsActionListener);
         userAdministrationPanel.LogoutButtonActionListener(logoutActionListener);
@@ -279,22 +261,17 @@ public class MVCController {
 //        startSessionPanel.AddPatientButtonActionListener(addClientActionListener);
 //        startSessionPanel.StartSessionButtonActionListener(startSessionActionListener);
 //        startSessionPanel.StartInRoomSessionButtonActionListener(startInRoomSessionActionListener);
-        
+
 //        startSessionPanel.HomeButtonActionListener(homeActionListener);
-<<<<<<< HEAD
         adminRolesPanel.adminMenuButtonActionListener(adminMenuActionListener);
         adminRolesPanel.mainMenuButtonActionListener(homeActionListener);
         adminRolesPanel.executeRolesQueryActionListener(executeRolesQueryActionListener);
-=======
-        adminRolesPanel.AdminMenuButtonActionListener(adminMenuActionListener);
-        adminRolesPanel.MainMenuButtonActionListener(homeActionListener);
->>>>>>> 0d37478eb24b949811190a63c3ae43c3e8bcde97
-                
+
         addClientPanel.HomeButtonActionListener(homeActionListener);
 
-        
+
 //        liveSessionPanel.HomeButtonActionListener(homeActionListener);
-        
+
         supervisePanel.HomeButtonActionListener(homeActionListener);
         supervisePanel.UserProfileButtonActionListener(new ActionListener() {
             @Override
@@ -322,22 +299,20 @@ public class MVCController {
         });
 
         supervisePanel.CancelButtonActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent ae) {
                 throw new UnsupportedOperationException("Cancel Not supported yet.");
             }
         });
 
-        reviewEncountersPanel.HomeButtonActionListener(homeActionListener);        
-        reviewEncountersPanel.LogoutActionListener(logoutActionListener);        
-        reviewEncountersPanel.SettingsActionListener(settingsActionListener);        
+        reviewEncountersPanel.HomeButtonActionListener(homeActionListener);
+        reviewEncountersPanel.LogoutActionListener(logoutActionListener);
+        reviewEncountersPanel.SettingsActionListener(settingsActionListener);
         reviewEncountersPanel.CancelButtonActionListener(homeActionListener);
         reviewEncountersPanel.UserProfileActionListener(userProfileActionListener);
         reviewEncountersPanel.ReviewEncounterActionListener(reviewEncounterActionListener);
-        reviewSessionPanel.ReviewMoreSessionsActionListener(reviewEncounterActionListener);        
+        reviewSessionPanel.ReviewMoreSessionsActionListener(reviewEncounterActionListener);
         settingsPanel.ApplySettingsButtonActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent ae) {
                 throw new UnsupportedOperationException("Apply Settings Not supported yet.");
@@ -346,8 +321,8 @@ public class MVCController {
 
         settingsPanel.CancelButtonActionListener(homeActionListener);
         userProfilePanel.HomeButtonActionListener(homeActionListener);
-        superviseEncounterPanel.HomeButtonActionListener(homeActionListener);        
-        reviewSessionPanel.HomeButtonActionListener(homeActionListener);        
+        superviseEncounterPanel.HomeButtonActionListener(homeActionListener);
+        reviewSessionPanel.HomeButtonActionListener(homeActionListener);
     }
 
     private void changeContentPane(JPanel newPanel) {
@@ -368,13 +343,10 @@ public class MVCController {
         }
     }
 
-
     /**
      * @return the populateSampleData
      */
     public PopulateSampleData getPopulateSampleData() {
         return populateSampleData;
     }
-
-
 }

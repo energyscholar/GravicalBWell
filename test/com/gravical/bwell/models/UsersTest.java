@@ -1,10 +1,12 @@
+package com.gravical.bwell.models;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import com.gravical.bwell.models.Role;
-import com.gravical.bwell.models.User;
+import com.gravical.bwell.models.Roles;
+import com.gravical.bwell.models.Users;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,19 +18,19 @@ import static org.junit.Assert.*;
  *
  * @author user
  */
-public class UserTest {
-        static User user1, user2, user3, user4, user5;
+public class UsersTest {
+        static Users user1, user2, user3, user4, user5;
     
-    public UserTest() {
+    public UsersTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        user1 = new User(1,"user1","us","er1","password",5);
-        user2 = new User(2,"user2","us","er2","password",4);
-        user3 = new User(3,"user3","us","er3","password",3);
-        user4 = new User(4,"user4","us","er4","password",2);
-        user5 = new User(5,"user5","us","er5","password",1);
+        user1 = new Users(1,"user1","us","er1","password",5);
+        user2 = new Users(2,"user2","us","er2","password",4);
+        user3 = new Users(3,"user3","us","er3","password",3);
+        user4 = new Users(4,"user4","us","er4","password",2);
+        user5 = new Users(5,"user5","us","er5","password",1);
         
     }
 

@@ -26,6 +26,10 @@ public class SettingsPanel extends javax.swing.JPanel {
     public void CancelButtonActionListener(ActionListener a) {
         CancelButton.addActionListener(a);
     }    
+    public void HomeButtonActionListener(ActionListener a) {
+        HomeButton.addActionListener(a);
+    }    
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,6 +43,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         ApplySettingsButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
+        HomeButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Settings");
@@ -47,6 +52,8 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         CancelButton.setText("Cancel");
 
+        HomeButton.setText("Home");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -54,7 +61,9 @@ public class SettingsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(259, 259, 259)
+                        .addContainerGap()
+                        .addComponent(HomeButton)
+                        .addGap(190, 190, 190)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
@@ -66,8 +75,13 @@ public class SettingsPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(HomeButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ApplySettingsButton)
@@ -78,6 +92,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplySettingsButton;
     private javax.swing.JButton CancelButton;
+    private javax.swing.JButton HomeButton;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

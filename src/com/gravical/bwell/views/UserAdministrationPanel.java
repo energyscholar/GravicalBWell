@@ -5,7 +5,6 @@
 package com.gravical.bwell.views;
 
 import com.gravical.bwell.controller.MVCController;
-import com.gravical.bwell.models.Users;
 import java.awt.event.ActionListener;
 
 /**
@@ -68,6 +67,11 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         userCountLabel = new javax.swing.JLabel();
         userCount = new javax.swing.JLabel();
+        userAdministrationLabel = new javax.swing.JLabel();
+        addUserButton = new javax.swing.JButton();
+        editUserButton = new javax.swing.JButton();
+        activateUserButton = new javax.swing.JButton();
+        editPolicyButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -129,6 +133,17 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
 
         userCount.setText("0");
 
+        userAdministrationLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        userAdministrationLabel.setText("User Administration");
+
+        addUserButton.setText("Add User");
+
+        editUserButton.setText("Edit User");
+
+        activateUserButton.setText("Activate User");
+
+        editPolicyButton.setText("Edit Policy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,9 +166,21 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userCount))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                        .addGap(243, 243, 243)
+                        .addComponent(userAdministrationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addUserButton)
+                                .addGap(34, 34, 34)
+                                .addComponent(editUserButton)
+                                .addGap(32, 32, 32)
+                                .addComponent(activateUserButton)
+                                .addGap(31, 31, 31)
+                                .addComponent(editPolicyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,9 +194,17 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                     .addComponent(HelpButton)
                     .addComponent(userCountLabel)
                     .addComponent(userCount))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(userAdministrationLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addUserButton)
+                    .addComponent(editUserButton)
+                    .addComponent(activateUserButton)
+                    .addComponent(editPolicyButton))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,8 +213,13 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
     private javax.swing.JButton LogoutButton;
     private javax.swing.JButton SettingsButton;
     private javax.swing.JButton UserProfileButton;
+    private javax.swing.JButton activateUserButton;
+    private javax.swing.JButton addUserButton;
+    private javax.swing.JButton editPolicyButton;
+    private javax.swing.JButton editUserButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel userAdministrationLabel;
     private javax.swing.JLabel userCount;
     private javax.swing.JLabel userCountLabel;
     // End of variables declaration//GEN-END:variables

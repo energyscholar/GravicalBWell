@@ -9,6 +9,7 @@
     <property name="hibernate.connection.password">app</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
     <mapping resource="com/gravical/bwell/models/Roles.hbm.xml"/>
     <mapping resource="com/gravical/bwell/models/Users.hbm.xml"/>
   </session-factory>

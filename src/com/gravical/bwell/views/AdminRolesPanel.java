@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -21,19 +22,16 @@ import org.hibernate.Session;
 public class AdminRolesPanel extends javax.swing.JPanel {
 
     private static String QUERY_ALL_ROLES = "from Roles order by role_id";
-
-    /**
-     * @return the QUERY_ALL_ROLES
-     */
-    public String getQUERY_ALL_ROLES() {
-        return QUERY_ALL_ROLES;
-    }
-
+    private static List rolesList;
+    private static Session session;
+        
     /**
      * Creates new form AdminRoles
      */
     public AdminRolesPanel() {
         initComponents();
+        loadRoles();
+
     }
 
     public void mainMenuButtonActionListener(ActionListener a) {
@@ -44,20 +42,24 @@ public class AdminRolesPanel extends javax.swing.JPanel {
         this.AdminHomeButton.addActionListener(a);
     }    
 
-    // will call        executeHQLQuery(QUERY_ALL_ROLES);
+    // will call        loadRoles(QUERY_ALL_ROLES);
     public void executeRolesQueryActionListener(ActionListener a) {
         this.showRolesButton.addActionListener(a);
     }
     
-
-    public void executeHQLQuery(String hql) {
+    public void updateQueryActionListener(ActionListener a) {
+        this.updateQuery.addActionListener(a);
+    }
+    
+    public void loadRoles() {
     try {
         System.out.println("executeHQLQuery started");
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query q = session.createQuery(hql);
+        Query q = session.createQuery(getQUERY_ALL_ROLES());
         List resultList = q.list();
-        displayResult(resultList);
+        rolesList = resultList;
+        displayResult(rolesList);
         session.getTransaction().commit();
     } catch (HibernateException he) {
         System.out.println("executeHQLQuery failed");
@@ -81,7 +83,34 @@ private void displayResult(List resultList) {
     }
     resultsTable.setModel(new DefaultTableModel(tableData, tableHeaders));   
 }
-    
+
+public void saveChanges() {
+        System.out.println("updateQuery ran");
+        Roles role = (Roles) rolesList.get(1);
+        int newId = rolesList.size() + 1;
+        System.out.println("updateQuery role=" + role);
+        String newRoleName ;
+        //newRoleName = this.resultsTable.get ;
+        HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        System.out.println("updateQuery (String) resultsTable.getValueAt(1, 1) =" + (String) resultsTable.getValueAt(1, 1));
+        role.setRoleName( (String) resultsTable.getValueAt(1, 1) );
+        
+        
+        session.update(role);
+        session.getTransaction().commit();
+        //session.close();
+}
+
+    /**
+     * @return the QUERY_ALL_ROLES
+     */
+    public String getQUERY_ALL_ROLES() {
+        return QUERY_ALL_ROLES;
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,6 +127,7 @@ private void displayResult(List resultList) {
         showRolesButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultsTable = new javax.swing.JTable();
+        updateQuery = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Edit Roles");
@@ -110,6 +140,8 @@ private void displayResult(List resultList) {
 
         resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
+                {null, null},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -135,20 +167,19 @@ private void displayResult(List resultList) {
             }
         });
         resultsTable.setColumnSelectionAllowed(true);
+        resultsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(resultsTable);
         resultsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         resultsTable.getColumnModel().getColumn(0).setResizable(false);
         resultsTable.getColumnModel().getColumn(1).setResizable(false);
+
+        updateQuery.setText("Save Changes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(showRolesButton)
-                .addGap(77, 77, 77))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -160,7 +191,11 @@ private void displayResult(List resultList) {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(showRolesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(updateQuery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(65, 65, 65))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,11 +206,16 @@ private void displayResult(List resultList) {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(MainMenuButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showRolesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(showRolesButton)
+                        .addGap(32, 32, 32)
+                        .addComponent(updateQuery))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -186,5 +226,6 @@ private void displayResult(List resultList) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable resultsTable;
     private javax.swing.JButton showRolesButton;
+    private javax.swing.JButton updateQuery;
     // End of variables declaration//GEN-END:variables
 }

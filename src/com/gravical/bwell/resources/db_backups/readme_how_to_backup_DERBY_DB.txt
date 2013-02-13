@@ -1,0 +1,1 @@
+CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE('c:/data/gravical/full_db_backup_12Feb2013')

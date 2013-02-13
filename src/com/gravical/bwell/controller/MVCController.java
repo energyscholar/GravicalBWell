@@ -127,7 +127,17 @@ public class MVCController {
             public void actionPerformed(ActionEvent ae) {
 
                 System.out.println("ExecuteRolesQueryActionListener");
-                adminRolesPanel.executeHQLQuery(adminRolesPanel.getQUERY_ALL_ROLES());
+                adminRolesPanel.loadRoles();
+            }
+        };
+
+        // Listen for user request to update roles (admin only)
+        ActionListener updateQueryActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                System.out.println("updateQueryActionListener update!");
+                adminRolesPanel.saveChanges();
             }
         };
 
@@ -266,7 +276,9 @@ public class MVCController {
         adminRolesPanel.adminMenuButtonActionListener(adminMenuActionListener);
         adminRolesPanel.mainMenuButtonActionListener(homeActionListener);
         adminRolesPanel.executeRolesQueryActionListener(executeRolesQueryActionListener);
+        adminRolesPanel.updateQueryActionListener(updateQueryActionListener);
 
+        
         addClientPanel.HomeButtonActionListener(homeActionListener);
 
 

@@ -1,0 +1,10 @@
+-- SQL to create USERS table
+
+create table "BWELL".USERS
+(
+	USER_ID NUMERIC(5) not null primary key,
+	FIRST_NAME VARCHAR(255),
+	LAST_NAME VARCHAR(255),
+	ROLE_ID NUMERIC(5),
+	USERNAME VARCHAR(15)
+)

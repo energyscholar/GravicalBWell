@@ -7,6 +7,7 @@ package com.gravical.bwell.views;
 import com.gravical.bwell.db.HibernateUtil;
 import com.gravical.bwell.models.Roles;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class AdminRolesPanel extends javax.swing.JPanel {
     public AdminRolesPanel() {
         initComponents();
         loadRoles();
-
+        resultsTable.setColumnSelectionAllowed(false);
     }
 
     public void mainMenuButtonActionListener(ActionListener a) {
@@ -86,20 +87,24 @@ private void displayResult(List resultList) {
 
 public void saveChanges() {
         System.out.println("updateQuery ran");
-        Roles role = (Roles) rolesList.get(1);
-        int newId = rolesList.size() + 1;
-        System.out.println("updateQuery role=" + role);
-        String newRoleName ;
-        //newRoleName = this.resultsTable.get ;
+        List newRolesList;
+        Roles role = new Roles();
+
+        //System.out.println("updateQuery role=" + role);
+        //System.out.println("updateQuery (String) resultsTable.getValueAt(0, 1) =" + (String) resultsTable.getValueAt(0, 1));
+        
+        
+
         HibernateUtil.getSessionFactory().openSession();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        System.out.println("updateQuery (String) resultsTable.getValueAt(1, 1) =" + (String) resultsTable.getValueAt(1, 1));
-        role.setRoleName( (String) resultsTable.getValueAt(1, 1) );
-        
-        
-        session.update(role);
+        for (int i=0;i<rolesList.size();i++) {
+            role = (Roles) rolesList.get(i);
+            role.setRoleName( (String) resultsTable.getValueAt(i, 1) );
+            session.update(role);
+        }
         session.getTransaction().commit();
+        //displayResult(rolesList);        
         //session.close();
 }
 
@@ -168,6 +173,11 @@ public void saveChanges() {
         });
         resultsTable.setColumnSelectionAllowed(true);
         resultsTable.getTableHeader().setReorderingAllowed(false);
+        resultsTable.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                resultsTableFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(resultsTable);
         resultsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         resultsTable.getColumnModel().getColumn(0).setResizable(false);
@@ -218,6 +228,12 @@ public void saveChanges() {
                 .addContainerGap(311, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void resultsTableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_resultsTableFocusLost
+        
+        // TODO add your handling code here:
+        saveChanges();
+    }//GEN-LAST:event_resultsTableFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdminHomeButton;

@@ -1,6 +1,7 @@
 package com.gravical.bwell.controller;
 
 import com.gravical.bwell.db.PopulateSampleData;
+import com.gravical.bwell.models.Users;
 //import com.gravical.bwell.models.Roles;
 //import com.gravical.bwell.models.Users;
 import java.awt.event.*;
@@ -61,6 +62,9 @@ public class MVCController {
     private com.gravical.bwell.views.RemoteSessionPanel remoteSessionPanel = new com.gravical.bwell.views.RemoteSessionPanel();
     private com.gravical.bwell.views.AdminMenuPanel adminMenuPanel = new com.gravical.bwell.views.AdminMenuPanel();
     private com.gravical.bwell.views.AdminRolesPanel adminRolesPanel = new com.gravical.bwell.views.AdminRolesPanel();
+
+//    private com.gravical.bwell.views.DeleteMePanel startSessionPanel = new com.gravical.bwell.views.DeleteMePanel();
+
     private PopulateSampleData populateSampleData;
     private static ArrayList users;
     private static ArrayList roles;
@@ -182,6 +186,13 @@ public class MVCController {
         ActionListener startInRoomSessionActionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                int rowSelected = 0;
+                rowSelected = startSessionPanel.clientsTable.getSelectedRow();
+                Users user = (Users) startSessionPanel.usersList.get(rowSelected);
+                int userIdSelected = user.getUserId();
+                System.out.println("startInRoomSessionActionListener detected userIdSelected =" + userIdSelected);
+                inRoomSessionPanel.cameraTwoLabel.setText(user.getFirstName() +" "+ user.getLastName());
+                inRoomSessionPanel.client = user;
                 changeContentPane(inRoomSessionPanel);
             }
         };

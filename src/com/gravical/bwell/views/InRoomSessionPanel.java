@@ -4,6 +4,7 @@
  */
 package com.gravical.bwell.views;
 
+import com.gravical.bwell.models.Users;
 import java.awt.event.ActionListener;
 
 /**
@@ -11,7 +12,9 @@ import java.awt.event.ActionListener;
  * @author User
  */
 public class InRoomSessionPanel extends javax.swing.JPanel {
-
+    public Users initatingUser;
+    public Users client;
+    
     /**
      * Creates new form StartInRoomSessionPanel
      */
@@ -156,7 +159,7 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
                                 .addComponent(cameraOneLabel)
-                                .addGap(90, 90, 90)
+                                .addGap(151, 151, 151)
                                 .addComponent(cameraTwoLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -212,7 +215,7 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 804, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -221,7 +224,7 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGap(0, 591, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -231,10 +234,10 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HomeButton;
-    private javax.swing.JLabel cameraOneLabel;
+    public javax.swing.JLabel cameraOneLabel;
     private javax.swing.JLabel cameraStubImageLabel1;
     private javax.swing.JLabel cameraStubImageLabel2;
-    private javax.swing.JLabel cameraTwoLabel;
+    public javax.swing.JLabel cameraTwoLabel;
     private javax.swing.JButton consultButton;
     private javax.swing.JLabel discussionLabel;
     private javax.swing.JButton endEncounterButton;

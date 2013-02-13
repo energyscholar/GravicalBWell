@@ -5,50 +5,120 @@
 package com.gravical.bwell.views;
 
 import com.gravical.bwell.controller.MVCController;
+import com.gravical.bwell.db.HibernateUtil;
+import com.gravical.bwell.models.Roles;
+import com.gravical.bwell.models.Users;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 
 /**
  *
  * @author User
  */
 public class UserAdministrationPanel extends javax.swing.JPanel {
-    
-    
-    
+    private static String QUERY_ALL_USERS = "from Users";    
+    private static List usersList;
+    private static Session session;
+
     /**
      * Creates new form UserAdministrationPanel
      */
     public UserAdministrationPanel() {
         initComponents();
-        //int userCount = MVCController.getUsers().size();
-        
+        loadUsers();
+        resultsTable.setColumnSelectionAllowed(false);
+
     }
 
     public void updatePanel() {
         int userSize = 0;
         userSize = MVCController.getUsers().size();
-        
+
         this.userCount.setText("" + userSize);
-        
+
     }
-    
+
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
-    }    
+    }
 
     public void LogoutButtonActionListener(ActionListener a) {
         LogoutButton.addActionListener(a);
-    }    
-    
+    }
+
     public void UserProfileButtonActionListener(ActionListener a) {
         UserProfileButton.addActionListener(a);
-    }    
-    
+    }
+
     public void SettingsButtonActionListener(ActionListener a) {
         SettingsButton.addActionListener(a);
-    }    
+    }
+
+    public void editUserButtonActionListener(ActionListener a) {
+        editUserButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                         System.out.println("editUserButton pressed");
+                    }
+                });
+    }
+
+    public void addUserButtonActionListener(ActionListener a) {
+        addUserButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        
+                    }
+                });
+    }
+    
+    public void loadUsers() {
+    try {        
+        //System.out.println("executeHQLQuery started");
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query q = session.createQuery(this.QUERY_ALL_USERS);
+        List resultList = q.list();
+        usersList = resultList;
+        displayResult(usersList);
+        //session.getTransaction().commit();
+    } catch (HibernateException he) {
+        System.out.println("executeHQLQuery failed");
+        he.printStackTrace();
+    }
+}  
+
+private void displayResult(List resultList) {
+    // TODO: update Vector to ArrayList
+    Vector<String> tableHeaders = new Vector<String>();
+    Vector tableData = new Vector();
+    tableHeaders.add("Username"); 
+    tableHeaders.add("Full Name"); 
+    tableHeaders.add("Role"); 
+
+    for(Object o : resultList) {
+        Users users = (Users)o;
+        Vector<Object> oneRow = new Vector<Object>();
+        oneRow.add(users.getUsername());
+        oneRow.add(users.getLastName() +", "+ users.getFirstName() );
+        oneRow.add(users.getRoleId());
+        
+        tableData.add(oneRow);
+    }
+    resultsTable.setModel(new DefaultTableModel(tableData, tableHeaders));   
+}
     
     
+    // Listen for user request to go to Home, aka Main Menu
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +134,7 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
         LogoutButton = new javax.swing.JButton();
         HelpButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        resultsTable = new javax.swing.JTable();
         userCountLabel = new javax.swing.JLabel();
         userCount = new javax.swing.JLabel();
         userAdministrationLabel = new javax.swing.JLabel();
@@ -85,7 +155,7 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
 
         HelpButton.setText("Help");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -113,21 +183,21 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(4);
-        jTable1.getColumnModel().getColumn(0).setHeaderValue("Active");
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(12);
-        jTable1.getColumnModel().getColumn(1).setHeaderValue("Username");
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(12);
-        jTable1.getColumnModel().getColumn(2).setHeaderValue("Real Name");
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(10);
-        jTable1.getColumnModel().getColumn(3).setHeaderValue("Roles");
+        resultsTable.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(resultsTable);
+        resultsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        resultsTable.getColumnModel().getColumn(0).setResizable(false);
+        resultsTable.getColumnModel().getColumn(0).setPreferredWidth(4);
+        resultsTable.getColumnModel().getColumn(0).setHeaderValue("Active");
+        resultsTable.getColumnModel().getColumn(1).setResizable(false);
+        resultsTable.getColumnModel().getColumn(1).setPreferredWidth(12);
+        resultsTable.getColumnModel().getColumn(1).setHeaderValue("Username");
+        resultsTable.getColumnModel().getColumn(2).setResizable(false);
+        resultsTable.getColumnModel().getColumn(2).setPreferredWidth(12);
+        resultsTable.getColumnModel().getColumn(2).setHeaderValue("Real Name");
+        resultsTable.getColumnModel().getColumn(3).setResizable(false);
+        resultsTable.getColumnModel().getColumn(3).setPreferredWidth(10);
+        resultsTable.getColumnModel().getColumn(3).setHeaderValue("Roles");
 
         userCountLabel.setText("User Count:");
 
@@ -204,7 +274,7 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
                     .addComponent(editUserButton)
                     .addComponent(activateUserButton)
                     .addComponent(editPolicyButton))
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -218,7 +288,7 @@ public class UserAdministrationPanel extends javax.swing.JPanel {
     private javax.swing.JButton editPolicyButton;
     private javax.swing.JButton editUserButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable resultsTable;
     private javax.swing.JLabel userAdministrationLabel;
     private javax.swing.JLabel userCount;
     private javax.swing.JLabel userCountLabel;

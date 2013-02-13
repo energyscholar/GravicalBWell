@@ -54,11 +54,14 @@ public class LoginPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Server:");
 
+        usernameField.setText("user1");
         usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameFieldActionPerformed(evt);
             }
         });
+
+        passwordField.setText("grav1");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Main Server", "Second Server", "Backup Server" }));
 

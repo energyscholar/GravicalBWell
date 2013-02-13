@@ -26,11 +26,11 @@ public class UsersTest {
     
     @BeforeClass
     public static void setUpClass() {
-        user1 = new Users(1,"user1","us","er1","password",5);
-        user2 = new Users(2,"user2","us","er2","password",4);
-        user3 = new Users(3,"user3","us","er3","password",3);
-        user4 = new Users(4,"user4","us","er4","password",2);
-        user5 = new Users(5,"user5","us","er5","password",1);
+        user1 = new Users(1,"us","er1",5,"user1","password");
+        user2 = new Users(2,"us","er2",4,"user2","password");
+        user3 = new Users(3,"us","er3",3,"user3","password");
+        user4 = new Users(4,"us","er4",2,"user4","password");
+        user5 = new Users(5,"us","er5",1,"user5","password");
         
     }
 

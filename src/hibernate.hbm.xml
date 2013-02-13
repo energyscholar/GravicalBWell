@@ -10,5 +10,26 @@
             <column name="ROLE_NAME" length="80" />
         </property>
     </class>
+    <class name="com.gravical.bwell.models.Users" table="USERS" schema="BWELL">
+        <id name="userId" type="int">
+            <column name="USER_ID" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="FIRST_NAME" length="80" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LAST_NAME" length="80" />
+        </property>
+        <property name="username" type="string">
+            <column name="USERNAME" length="80" />
+        </property>
+        <property name="roleId" type="int">
+            <column name="role_id" length="2" />
+        </property>
+        <property name="passwordHashed" type="string">
+            <column name="password_hashed" length="80" />
+        </property>
+    </class>
 </hibernate-mapping>
 

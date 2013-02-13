@@ -236,6 +236,8 @@ public class MVCController {
         ActionListener reviewSessionActionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                //TODO: Big performance gain in moving this to only hit DB on actual Panel load
+                reviewEncountersPanel.loadBwellSessions();     
                 changeContentPane(reviewEncountersPanel);
             }
         };

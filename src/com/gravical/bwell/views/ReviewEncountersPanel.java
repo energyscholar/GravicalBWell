@@ -30,8 +30,6 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
      */
     public ReviewEncountersPanel() {
         initComponents();
-        //TODO: Big performance gain in moving this to only hit DB on actual Panel load
-        loadBwellSessions();        
     }
 
     public void loadBwellSessions() {

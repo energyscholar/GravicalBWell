@@ -61,7 +61,7 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         bwellSession.setSessionDescription("Session with " + MVCController.loggedInUser.getUsername() + " and " + client.getUsername() );
         bwellSession.setSessionSummary("Session summary");        
         // save the bwell session
-        //System.out.println("updateQuery (String) resultsTable.getValueAt(0, 1) =" + (String) resultsTable.getValueAt(0, 1));
+        System.out.println("startInRoomSession bwellSession = " + bwellSession);
         HibernateUtil.getSessionFactory().openSession();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();

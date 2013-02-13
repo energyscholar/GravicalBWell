@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-Feb-2013 01:12:06 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.gravical.bwell.models.Media" table="MEDIA" schema="BWELL">
+        <id name="mediaId" type="int">
+            <column name="MEDIA_ID" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="mediaStart" type="timestamp">
+            <column name="MEDIA_START" length="29" not-null="true" />
+        </property>
+        <property name="mediaEnd" type="timestamp">
+            <column name="MEDIA_END" length="29" not-null="true" />
+        </property>
+        <property name="mediaFilename" type="string">
+            <column name="MEDIA_FILENAME" />
+        </property>
+        <property name="mediaLocation" type="string">
+            <column name="MEDIA_LOCATION" length="1024" not-null="true" />
+        </property>
+        <property name="mediaDescription" type="string">
+            <column name="MEDIA_DESCRIPTION" not-null="true" />
+        </property>
+        <property name="sessionId" type="java.lang.Integer">
+            <column name="SESSION_ID" precision="5" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

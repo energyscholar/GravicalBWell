@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-Feb-2013 01:12:06 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.gravical.bwell.models.Annotations" table="ANNOTATIONS" schema="BWELL">
+        <id name="annotationId" type="int">
+            <column name="ANNOTATION_ID" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="annotationText" type="string">
+            <column name="ANNOTATION_TEXT" />
+        </property>
+        <property name="annotationTs" type="timestamp">
+            <column name="ANNOTATION_TS" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

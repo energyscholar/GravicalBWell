@@ -1,0 +1,8 @@
+-- Create the BWELL table ANNOTATIONS
+
+create table "BWELL".ANNOTATIONS
+(
+	ANNOTATION_ID NUMERIC(5) not null primary key,
+	ANNOTATION_TEXT VARCHAR(255),
+	ANNOTATION_TS TIMESTAMP
+)

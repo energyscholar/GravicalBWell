@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-Feb-2013 01:12:06 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.gravical.bwell.models.AllUsersShowingRoleName" table="ALL_USERS_SHOWING_ROLE_NAME" schema="BWELL">
+        <composite-id name="id" class="com.gravical.bwell.models.AllUsersShowingRoleNameId">
+            <key-property name="userId" type="int">
+                <column name="USER_ID" precision="5" scale="0" />
+            </key-property>
+            <key-property name="firstName" type="string">
+                <column name="FIRST_NAME" />
+            </key-property>
+            <key-property name="lastName" type="string">
+                <column name="LAST_NAME" />
+            </key-property>
+            <key-property name="roleId" type="java.lang.Integer">
+                <column name="ROLE_ID" precision="5" scale="0" />
+            </key-property>
+            <key-property name="username" type="string">
+                <column name="USERNAME" length="15" />
+            </key-property>
+            <key-property name="passwordHashed" type="string">
+                <column name="PASSWORD_HASHED" length="128" />
+            </key-property>
+            <key-property name="roleName" type="string">
+                <column name="ROLE_NAME" length="80" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -12,5 +12,9 @@
     <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
     <mapping resource="com/gravical/bwell/models/Roles.hbm.xml"/>
     <mapping resource="com/gravical/bwell/models/Users.hbm.xml"/>
+    <mapping resource="com/gravical/bwell/models/Media.hbm.xml"/>
+    <mapping resource="com/gravical/bwell/models/Sessions.hbm.xml"/>
+    <mapping resource="com/gravical/bwell/models/Annotations.hbm.xml"/>
+    <mapping resource="com/gravical/bwell/models/AllUsersShowingRoleName.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

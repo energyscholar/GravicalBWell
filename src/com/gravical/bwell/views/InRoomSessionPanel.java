@@ -4,17 +4,30 @@
  */
 package com.gravical.bwell.views;
 
+import com.gravical.bwell.controller.MVCController;
+import com.gravical.bwell.db.DBUtils;
+import com.gravical.bwell.db.HibernateUtil;
+import com.gravical.bwell.models.Roles;
+import com.gravical.bwell.models.Sessions;
 import com.gravical.bwell.models.Users;
 import java.awt.event.ActionListener;
+import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
  * @author User
  */
 public class InRoomSessionPanel extends javax.swing.JPanel {
+
     public Users initatingUser;
+    // client is the person with whom the session is being started
     public Users client;
-    
+    // the gravical media bwellSession
+    public Sessions bwellSession;
+    // the Hibernate session
+    private static Session session;
+
     /**
      * Creates new form StartInRoomSessionPanel
      */
@@ -24,8 +37,41 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
 
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
-    }    
+    }
 
+    public void startInRoomSession() {
+        bwellSession = new Sessions();
+        java.util.Date date = new java.util.Date();
+        java.sql.Timestamp tsStart = new java.sql.Timestamp(date.getTime());
+        java.sql.Timestamp tsEnd = new java.sql.Timestamp(date.getTime() + 3600 );
+        int newSessionId = 0;
+        try {
+            newSessionId = DBUtils.determineBwellSessionsCountFromDB() + 1;
+        }
+        catch (Exception e) {
+            System.out.println("process of starting an in-room session failed when the SQL to get SESSIONS.COUNT failed");
+            e.printStackTrace();
+        }
+        
+        bwellSession.setSessionId(newSessionId);
+        bwellSession.setSessionStart(tsStart);
+        bwellSession.setSessionEnd(tsEnd);
+        bwellSession.setSessionInitiator(MVCController.loggedInUser.getUserId() );
+        bwellSession.setSessionParticipant1Id(client.getUserId());
+        bwellSession.setSessionDescription("Session with " + MVCController.loggedInUser.getUsername() + " and " + client.getUsername() );
+        bwellSession.setSessionSummary("Session summary");        
+        // save the bwell session
+        //System.out.println("updateQuery (String) resultsTable.getValueAt(0, 1) =" + (String) resultsTable.getValueAt(0, 1));
+        HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.saveOrUpdate(bwellSession);
+        session.getTransaction().commit();
+        
+        
+    }
+
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

@@ -26,8 +26,8 @@ public class StartSessionPanel extends javax.swing.JPanel {
 
     private static String QUERY_ALL_USERS = "from Users order by last_name";
     public List usersList;
-    private static Session session;
-
+    public Session session;
+    
     /**
      * Creates new form StartSessionPanel
      */

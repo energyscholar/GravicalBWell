@@ -1,6 +1,7 @@
 package com.gravical.bwell.controller;
 
 import com.gravical.bwell.db.PopulateSampleData;
+import com.gravical.bwell.models.Sessions;
 import com.gravical.bwell.models.Users;
 //import com.gravical.bwell.models.Roles;
 //import com.gravical.bwell.models.Users;
@@ -18,6 +19,8 @@ import javax.swing.UIManager;
  */
 public class MVCController {
 
+    public static Users loggedInUser;
+    
     /**
      * @return the users
      */
@@ -62,9 +65,7 @@ public class MVCController {
     private com.gravical.bwell.views.RemoteSessionPanel remoteSessionPanel = new com.gravical.bwell.views.RemoteSessionPanel();
     private com.gravical.bwell.views.AdminMenuPanel adminMenuPanel = new com.gravical.bwell.views.AdminMenuPanel();
     private com.gravical.bwell.views.AdminRolesPanel adminRolesPanel = new com.gravical.bwell.views.AdminRolesPanel();
-
 //    private com.gravical.bwell.views.DeleteMePanel startSessionPanel = new com.gravical.bwell.views.DeleteMePanel();
-
     private PopulateSampleData populateSampleData;
     private static ArrayList users;
     private static ArrayList roles;
@@ -78,11 +79,15 @@ public class MVCController {
 
 //  private models.Data data = new models.Data();
     public void init() {
+        // TODO: Fix hardcoded user and implement security system
+        loggedInUser = new Users(1, "us", "er1", 1, "user1", "password");
+
+
         frame.setSize(800, 600);
         frame.setContentPane(loginPanel);
         //frame.add(loginPanel);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Listens for user pressing any Logout button
         ActionListener logoutActionListener = new ActionListener() {
@@ -191,8 +196,9 @@ public class MVCController {
                 Users user = (Users) startSessionPanel.usersList.get(rowSelected);
                 int userIdSelected = user.getUserId();
                 System.out.println("startInRoomSessionActionListener detected userIdSelected =" + userIdSelected);
-                inRoomSessionPanel.cameraTwoLabel.setText(user.getFirstName() +" "+ user.getLastName());
+                inRoomSessionPanel.cameraTwoLabel.setText(user.getFirstName() + " " + user.getLastName());
                 inRoomSessionPanel.client = user;
+                inRoomSessionPanel.startInRoomSession();
                 changeContentPane(inRoomSessionPanel);
             }
         };
@@ -226,7 +232,7 @@ public class MVCController {
             }
         };
 
-        // this will be called by a user wishing to review sessions
+        // this will be called by a user wishing to review bwellSession
         ActionListener reviewSessionActionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -289,7 +295,7 @@ public class MVCController {
         adminRolesPanel.executeRolesQueryActionListener(executeRolesQueryActionListener);
         adminRolesPanel.updateQueryActionListener(updateQueryActionListener);
 
-        
+
         addClientPanel.HomeButtonActionListener(homeActionListener);
 
 

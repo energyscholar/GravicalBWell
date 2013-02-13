@@ -1,0 +1,15 @@
+-- Create table MEDIA
+
+create table "BWELL".MEDIA
+(
+	MEDIA_ID NUMERIC(5) not null primary key,
+	MEDIA_START TIMESTAMP not null,
+	MEDIA_END TIMESTAMP not null,
+	MEDIA_FILENAME VARCHAR(255),
+	MEDIA_LOCATION VARCHAR(1024) not null,
+	MEDIA_DESCRIPTION VARCHAR(255) not null,
+	SESSION_ID NUMERIC(5)
+)
+
+
+

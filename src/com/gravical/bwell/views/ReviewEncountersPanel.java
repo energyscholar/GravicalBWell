@@ -4,7 +4,16 @@
  */
 package com.gravical.bwell.views;
 
+import com.gravical.bwell.db.HibernateUtil;
+import com.gravical.bwell.models.Roles;
+import com.gravical.bwell.models.Sessions;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -12,46 +21,89 @@ import java.awt.event.ActionListener;
  */
 public class ReviewEncountersPanel extends javax.swing.JPanel {
 
+    private static String QUERY_ALL_BWELL_SESSIONS = "from Sessions";
+    private static List bwellSessionsList;
+    private static Session session;
+
     /**
      * Creates new form ReviewEncountersPanel
      */
     public ReviewEncountersPanel() {
         initComponents();
+        //TODO: Big performance gain in moving this to only hit DB on actual Panel load
+        loadBwellSessions();        
+    }
+
+    public void loadBwellSessions() {
+        try {
+            System.out.println("executeHQLQuery started");
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query q = session.createQuery(QUERY_ALL_BWELL_SESSIONS);
+            List resultList = q.list();
+            bwellSessionsList = resultList;
+            displayResult(bwellSessionsList);
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            System.out.println("executeHQLQuery failed");
+            he.printStackTrace();
+        }
+    }
+
+    private void displayResult(List resultList) {
+        // TODO: update Vector to ArrayList
+        Vector<String> tableHeaders = new Vector<String>();
+        Vector tableData = new Vector();
+        tableHeaders.add("Encounter ID");
+        tableHeaders.add("Start");
+        tableHeaders.add("End");
+        tableHeaders.add("Description");
+
+        for (Object o : resultList) {
+            Sessions bwellSession = (Sessions) o;
+            Vector<Object> oneRow = new Vector<Object>();
+            oneRow.add(bwellSession.getSessionId() );
+            oneRow.add(bwellSession.getSessionStart());
+            oneRow.add(bwellSession.getSessionEnd());
+            oneRow.add(bwellSession.getSessionDescription());
+            
+            tableData.add(oneRow);
+        }
+        pastEncountersTable.setModel(new DefaultTableModel(tableData, tableHeaders));
     }
 
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
-    }    
+    }
 
     public void UserProfileActionListener(ActionListener a) {
         UserProfileButton.addActionListener(a);
-    }    
+    }
 
     public void SettingsActionListener(ActionListener a) {
         SettingsButton.addActionListener(a);
-    }    
-    
+    }
+
     public void LogoutActionListener(ActionListener a) {
         LogoutButton.addActionListener(a);
-    }    
-    
+    }
+
     public void ReviewEncounterActionListener(ActionListener a) {
         ReviewEncounterButton.addActionListener(a);
-    }    
-    
+    }
+
     public void DeleteEncounterActionListener(ActionListener a) {
         DeleteEncounterButton.addActionListener(a);
-    }    
-    
+    }
+
     public void DeleteAllEncountersDisplayedActionListener(ActionListener a) {
         DeleteAllEncountersDisplayedButton.addActionListener(a);
-    }    
-    
+    }
+
     public void CancelButtonActionListener(ActionListener a) {
         CancelButton.addActionListener(a);
-    }    
-    
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,7 +128,7 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         ClearDateButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        pastEncountersTable = new javax.swing.JTable();
         ReviewEncounterButton = new javax.swing.JButton();
         DeleteEncounterButton = new javax.swing.JButton();
         DeleteAllEncountersDisplayedButton = new javax.swing.JButton();
@@ -114,7 +166,7 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        pastEncountersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -149,7 +201,7 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(pastEncountersTable);
 
         ReviewEncounterButton.setText("Review");
 
@@ -260,7 +312,6 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
     private void ClearDateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearDateButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClearDateButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
     private javax.swing.JButton ClearDateButton;
@@ -281,6 +332,6 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable pastEncountersTable;
     // End of variables declaration//GEN-END:variables
 }

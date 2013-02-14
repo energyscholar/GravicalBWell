@@ -177,6 +177,14 @@ public class MVCController {
             }
         };
 
+        // Review a previous encounter
+        ActionListener deleteEncounterActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("deleteEncounterActionListener performed");
+            }
+        };
+
 
         // Start a remote session.  Multipoint not yet supported
         ActionListener startRemoteSessionActionListener = new ActionListener() {
@@ -342,6 +350,9 @@ public class MVCController {
         reviewEncountersPanel.CancelButtonActionListener(homeActionListener);
         reviewEncountersPanel.UserProfileActionListener(userProfileActionListener);
         reviewEncountersPanel.ReviewEncounterActionListener(reviewEncounterActionListener);
+        //TODO Refactor here, put methods in proper place, wherever that might be
+        reviewEncountersPanel.DeleteEncounterActionListener(deleteEncounterActionListener); 
+        
         reviewSessionPanel.ReviewMoreSessionsActionListener(reviewEncounterActionListener);
         settingsPanel.ApplySettingsButtonActionListener(new ActionListener() {
             @Override

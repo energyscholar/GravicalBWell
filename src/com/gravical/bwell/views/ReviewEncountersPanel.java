@@ -7,6 +7,7 @@ package com.gravical.bwell.views;
 import com.gravical.bwell.db.HibernateUtil;
 import com.gravical.bwell.models.Roles;
 import com.gravical.bwell.models.Sessions;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
@@ -60,14 +61,27 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
         for (Object o : resultList) {
             Sessions bwellSession = (Sessions) o;
             Vector<Object> oneRow = new Vector<Object>();
-            oneRow.add(bwellSession.getSessionId() );
+            oneRow.add(bwellSession.getSessionId());
             oneRow.add(bwellSession.getSessionStart());
             oneRow.add(bwellSession.getSessionEnd());
             oneRow.add(bwellSession.getSessionDescription());
-            
+
             tableData.add(oneRow);
         }
         pastEncountersTable.setModel(new DefaultTableModel(tableData, tableHeaders));
+    }
+
+    // Delete the BWellSession, by sessionId
+    public void deleteEncounter(Sessions BWellSessionToDelete) {
+        // TODO: Modify method to call server.  Client should not do direct delete
+        // TODO: authentication check on server : does loggedInUser have sufficient authority to delete the BWellsession?
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        // TODO: rewrite as Stored Procedure, none of this raw SQL nonsense
+        session.createQuery("delete from sessions where 0 = 0 and session_id = " + BWellSessionToDelete.getSessionId());
+
+        session.getTransaction().commit();
+
     }
 
     public void HomeButtonActionListener(ActionListener a) {
@@ -91,7 +105,19 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
     }
 
     public void DeleteEncounterActionListener(ActionListener a) {
-        DeleteEncounterButton.addActionListener(a);
+        DeleteEncounterButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        Sessions selectedBWellSession;
+                        // TODO Refactor to visibly remove sessions_id from pastEncountersTable!
+                        //pastEncountersTable.getValueAt(0, pastEncountersTable.getSelectedRow()); // get the 0th column of the selected row
+                        //selectedBWellSession = (Sessions) pastEncountersTable.getSelectedRow();
+                        System.out.println("DeleteEncounterActionListener DELETE pressed.  Selected BWellSessions is ...  pastEncountersTable.getSelectedRow()= " + pastEncountersTable.getSelectedRow());
+                        
+                        //throw new UnsupportedOperationException("Not supported yet.");
+                    }
+                });
     }
 
     public void DeleteAllEncountersDisplayedActionListener(ActionListener a) {
@@ -330,6 +356,6 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable pastEncountersTable;
+    public javax.swing.JTable pastEncountersTable;
     // End of variables declaration//GEN-END:variables
 }

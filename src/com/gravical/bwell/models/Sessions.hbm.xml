@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-Feb-2013 01:12:06 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 15-Feb-2013 01:45:34 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.gravical.bwell.models.Sessions" table="SESSIONS" schema="BWELL">
         <id name="sessionId" type="int">
@@ -12,7 +12,7 @@
             <column name="SESSION_START" length="29" not-null="true" />
         </property>
         <property name="sessionEnd" type="timestamp">
-            <column name="SESSION_END" length="29" not-null="true" />
+            <column name="SESSION_END" length="29" />
         </property>
         <property name="sessionInitiator" type="int">
             <column name="SESSION_INITIATOR" precision="5" scale="0" not-null="true" />

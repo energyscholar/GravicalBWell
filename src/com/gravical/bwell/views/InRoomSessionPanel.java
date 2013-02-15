@@ -55,7 +55,8 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         
         bwellSession.setSessionId(newSessionId);
         bwellSession.setSessionStart(tsStart);
-        bwellSession.setSessionEnd(tsEnd);
+        // TODO: Write Server code to END stranded sessions.
+        //bwellSession.setSessionEnd(tsEnd);
         bwellSession.setSessionInitiator(MVCController.loggedInUser.getUserId() );
         bwellSession.setSessionParticipant1Id(client.getUserId());
         bwellSession.setSessionDescription("Session with " + MVCController.loggedInUser.getUsername() + " and " + client.getUsername() );

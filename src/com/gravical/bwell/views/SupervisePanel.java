@@ -4,21 +4,73 @@
  */
 package com.gravical.bwell.views;
 
+import com.gravical.bwell.db.HibernateUtil;
+import com.gravical.bwell.models.Sessions;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
  * @author User
  */
 public class SupervisePanel extends javax.swing.JPanel {
+    private static String QUERY_ACTIVE_BWELL_SESSIONS = "from Sessions WHERE SESSION_END IS NULL";
+    private static List bwellSessionsList;
+    private static Session session;
 
     /**
      * Creates new form SupervisePanel
      */
     public SupervisePanel() {
         initComponents();
+        loadBwellSessions();
     }
 
+    public void loadBwellSessions() {
+        try {
+            System.out.println("executeHQLQuery started");
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query q = session.createQuery(QUERY_ACTIVE_BWELL_SESSIONS);
+            List resultList = q.list();
+            bwellSessionsList = resultList;
+            displayResult(bwellSessionsList);
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            System.out.println("executeHQLQuery failed");
+            he.printStackTrace();
+        }
+    }
+
+    private void displayResult(List resultList) {
+        // TODO: update Vector to ArrayList
+        Vector<String> tableHeaders = new Vector<String>();
+        Vector tableData = new Vector();
+        tableHeaders.add("Encounter ID");
+        tableHeaders.add("Start");
+        tableHeaders.add("End");
+        tableHeaders.add("Description");
+
+        for (Object o : resultList) {
+            Sessions bwellSession = (Sessions) o;
+            Vector<Object> oneRow = new Vector<Object>();
+            oneRow.add(bwellSession.getSessionId());
+            oneRow.add(bwellSession.getSessionStart());
+            oneRow.add(bwellSession.getSessionEnd());
+            oneRow.add(bwellSession.getSessionDescription());
+
+            tableData.add(oneRow);
+        }
+        activeBWellSessions.setModel(new DefaultTableModel(tableData, tableHeaders));
+    }
+    
+    
+    
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
     }    
@@ -70,7 +122,7 @@ public class SupervisePanel extends javax.swing.JPanel {
         nameForSearchField = new javax.swing.JTextField();
         InternsDropdownField = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        activeBWellSessions = new javax.swing.JTable();
         SuperviseEncounterButton = new javax.swing.JButton();
         ForceCloseButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
@@ -99,7 +151,7 @@ public class SupervisePanel extends javax.swing.JPanel {
 
         InternsDropdownField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Intern 1", "Intern 2", "Intern 3" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        activeBWellSessions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -126,10 +178,10 @@ public class SupervisePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(activeBWellSessions);
+        activeBWellSessions.getColumnModel().getColumn(0).setResizable(false);
+        activeBWellSessions.getColumnModel().getColumn(1).setResizable(false);
+        activeBWellSessions.getColumnModel().getColumn(2).setResizable(false);
 
         SuperviseEncounterButton.setText("Supervise");
 
@@ -235,11 +287,11 @@ public class SupervisePanel extends javax.swing.JPanel {
     private javax.swing.JButton SettingsButton;
     private javax.swing.JButton SuperviseEncounterButton;
     private javax.swing.JButton UserProfileButton;
+    private javax.swing.JTable activeBWellSessions;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameForSearchField;
     // End of variables declaration//GEN-END:variables
 }

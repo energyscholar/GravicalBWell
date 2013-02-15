@@ -4,6 +4,7 @@
  */
 package com.gravical.bwell.db;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -15,18 +16,27 @@ import org.hibernate.Session;
  */
 public class DBUtils {
 
-    private static String QUERY_GET_BWELL_SESSIONS_COUNT = "select COUNT(*) from BWELL.SESSIONS";
+    private static String QUERY_GET_BWELL_SESSIONS_COUNT = "select MAX(session_id) from BWELL.SESSIONS";
     private static Session session;
     private static SQLQuery q;
 
     public static int determineBwellSessionsCountFromDB() {
         session = HibernateUtil.getSessionFactory().openSession();
-        int bwellSessionsCount = 0;
+        int maxId = 0;
+
         q = session.createSQLQuery(QUERY_GET_BWELL_SESSIONS_COUNT);
         List countList = q.list();
-        String count = countList.get(0).toString() ;
-        System.out.println("determineBwellSessionsCountFromDB marker count = " + count);
-        bwellSessionsCount = new Integer(count).intValue() ;
-        return bwellSessionsCount;
+        System.out.println("determineBwellSessionsCountFromDB before maxId = " + maxId);
+        try {
+            BigDecimal bd = (BigDecimal) countList.get(0);
+            maxId = bd.intValue();
+
+        } catch (Exception e) {
+            // really do nothing!
+        }
+        System.out.println("determineBwellSessionsCountFromDB after maxId = " + maxId);
+
+
+        return maxId;
     }
 }

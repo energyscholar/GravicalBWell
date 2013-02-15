@@ -6,7 +6,6 @@ package com.gravical.bwell.views;
 
 import com.gravical.bwell.controller.MVCController;
 import com.gravical.bwell.db.HibernateUtil;
-import com.gravical.bwell.models.Roles;
 import com.gravical.bwell.models.Users;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,6 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 /**

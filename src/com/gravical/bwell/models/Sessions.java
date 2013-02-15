@@ -1,5 +1,5 @@
 package com.gravical.bwell.models;
-// Generated 13-Feb-2013 01:12:06 by Hibernate Tools 3.2.1.GA
+// Generated 15-Feb-2013 01:45:33 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -23,6 +23,17 @@ public class Sessions  implements java.io.Serializable {
     public Sessions() {
     }
 
+	
+    public Sessions(int sessionId, Date sessionStart, int sessionInitiator, int sessionParticipant1Id, int sessionParticipant2Id, int sessionParticipant3Id, String sessionDescription, String sessionSummary) {
+        this.sessionId = sessionId;
+        this.sessionStart = sessionStart;
+        this.sessionInitiator = sessionInitiator;
+        this.sessionParticipant1Id = sessionParticipant1Id;
+        this.sessionParticipant2Id = sessionParticipant2Id;
+        this.sessionParticipant3Id = sessionParticipant3Id;
+        this.sessionDescription = sessionDescription;
+        this.sessionSummary = sessionSummary;
+    }
     public Sessions(int sessionId, Date sessionStart, Date sessionEnd, int sessionInitiator, int sessionParticipant1Id, int sessionParticipant2Id, int sessionParticipant3Id, String sessionDescription, String sessionSummary) {
        this.sessionId = sessionId;
        this.sessionStart = sessionStart;

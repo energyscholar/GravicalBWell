@@ -78,6 +78,7 @@ public class ReviewEncountersPanel extends javax.swing.JPanel {
     }
 
     // Delete the BWellSession, by sessionId
+    // TODO: refactor to DBUtils
     // TODO: Possibly refactor to delete by Sessions object rather than session_id
     public void deleteEncounter(Sessions BWellSessionToDelete) {
         System.out.println("begin deleteEncounter" );

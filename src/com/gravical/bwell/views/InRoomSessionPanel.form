@@ -65,7 +65,7 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="122" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="discussionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="newChatMessageTextField" min="-2" pref="310" max="-2" attributes="0"/>
@@ -74,11 +74,11 @@
                                       </Group>
                                       <Component id="jScrollPane1" alignment="0" min="-2" pref="391" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="consultButton" min="-2" pref="102" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                           <Component id="recordButton" min="-2" pref="113" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="endEncounterButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -132,7 +132,6 @@
                       <Component id="textAnnotationButton" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="consultButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="recordButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="endEncounterButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -162,6 +161,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="HomeButton.setEnabled(false);"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -245,11 +247,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Annotation"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="consultButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Consult"/>
-          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="recordButton">
           <Properties>

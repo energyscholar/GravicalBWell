@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 15-Feb-2013 01:45:34 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 19-Feb-2013 01:44:27 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.gravical.bwell.models.Annotations" table="ANNOTATIONS" schema="BWELL">
         <id name="annotationId" type="int">
@@ -13,6 +13,9 @@
         </property>
         <property name="annotationTs" type="timestamp">
             <column name="ANNOTATION_TS" length="29" />
+        </property>
+        <property name="bwellSessionId" type="java.lang.Integer">
+            <column name="BWELL_SESSION_ID" precision="5" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

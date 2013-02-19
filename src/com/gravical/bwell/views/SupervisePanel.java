@@ -38,8 +38,8 @@ public class SupervisePanel extends javax.swing.JPanel {
             session.beginTransaction();
             Query q = session.createQuery(QUERY_ACTIVE_BWELL_SESSIONS);
             List resultList = q.list();
-            bwellSessionsList = resultList;
-            displayResult(bwellSessionsList);
+            setBwellSessionsList(resultList);
+            displayResult(getBwellSessionsList());
             session.getTransaction().commit();
         } catch (HibernateException he) {
             System.out.println("executeHQLQuery failed");
@@ -47,7 +47,7 @@ public class SupervisePanel extends javax.swing.JPanel {
         }
     }
 
-    private void displayResult(List resultList) {
+    public void displayResult(List resultList) {
         // TODO: update Vector to ArrayList
         Vector<String> tableHeaders = new Vector<String>();
         Vector tableData = new Vector();
@@ -66,7 +66,7 @@ public class SupervisePanel extends javax.swing.JPanel {
 
             tableData.add(oneRow);
         }
-        activeBWellSessions.setModel(new DefaultTableModel(tableData, tableHeaders));
+        activeBWellSessionsTable.setModel(new DefaultTableModel(tableData, tableHeaders));
     }
     
     
@@ -102,6 +102,22 @@ public class SupervisePanel extends javax.swing.JPanel {
     public void CancelButtonActionListener(ActionListener a) {
         CancelButton.addActionListener(a);
     }    
+
+    /**
+     * @return the bwellSessionsList
+     */
+    public static List getBwellSessionsList() {
+        return bwellSessionsList;
+    }
+
+    /**
+     * @param aBwellSessionsList the bwellSessionsList to set
+     */
+    public static void setBwellSessionsList(List aBwellSessionsList) {
+        bwellSessionsList = aBwellSessionsList;
+    }
+
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,7 +138,7 @@ public class SupervisePanel extends javax.swing.JPanel {
         nameForSearchField = new javax.swing.JTextField();
         InternsDropdownField = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        activeBWellSessions = new javax.swing.JTable();
+        activeBWellSessionsTable = new javax.swing.JTable();
         SuperviseEncounterButton = new javax.swing.JButton();
         ForceCloseButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
@@ -151,7 +167,7 @@ public class SupervisePanel extends javax.swing.JPanel {
 
         InternsDropdownField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Intern 1", "Intern 2", "Intern 3" }));
 
-        activeBWellSessions.setModel(new javax.swing.table.DefaultTableModel(
+        activeBWellSessionsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -178,10 +194,10 @@ public class SupervisePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(activeBWellSessions);
-        activeBWellSessions.getColumnModel().getColumn(0).setResizable(false);
-        activeBWellSessions.getColumnModel().getColumn(1).setResizable(false);
-        activeBWellSessions.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(activeBWellSessionsTable);
+        activeBWellSessionsTable.getColumnModel().getColumn(0).setResizable(false);
+        activeBWellSessionsTable.getColumnModel().getColumn(1).setResizable(false);
+        activeBWellSessionsTable.getColumnModel().getColumn(2).setResizable(false);
 
         SuperviseEncounterButton.setText("Supervise");
 
@@ -287,7 +303,7 @@ public class SupervisePanel extends javax.swing.JPanel {
     private javax.swing.JButton SettingsButton;
     private javax.swing.JButton SuperviseEncounterButton;
     private javax.swing.JButton UserProfileButton;
-    private javax.swing.JTable activeBWellSessions;
+    public javax.swing.JTable activeBWellSessionsTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

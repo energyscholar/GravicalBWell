@@ -20,13 +20,14 @@ import org.hibernate.Session;
  */
 public class InRoomSessionPanel extends javax.swing.JPanel {
 
-    public Users initatingUser;
+    private Users initatingUser;
     // client is the person with whom the session is being started
-    public Users client;
+    private Users client;
     // the gravical media bwellSession
-    public Sessions bwellSession;
+    private Sessions bwellSession;
     // the Hibernate session
     private static Session session;
+    private List annotations;
 
     /**
      * Creates new form StartInRoomSessionPanel
@@ -35,12 +36,30 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void loadAnnotations() {
+        System.out.print("InRoomSessionPanel bwellSession="+bwellSession);
+        this.setAnnotations(DBUtils.selectAnnotationsForGivenBWellSession(bwellSession));        
+        System.out.print("InRoomSessionPanel annotations="+getAnnotations());
+    }    
+    
     public void HomeButtonActionListener(ActionListener a) {
         HomeButton.addActionListener(a);
     }
 
+    public void RecordButtonActionListener(ActionListener a) {
+        recordButton.addActionListener(a);
+    }
+
+    public void EndEncounterButtonActionListener(ActionListener a) {
+        endEncounterButton.addActionListener(a);
+    }
+
+    public void TextAnnotationButtonActionListener(ActionListener a) {
+        this.textAnnotationButton.addActionListener(a);
+    }
+
     public void startInRoomSession() {
-        bwellSession = new Sessions();
+        setBwellSession(new Sessions());
         java.util.Date date = new java.util.Date();
         java.sql.Timestamp tsStart = new java.sql.Timestamp(date.getTime());
         java.sql.Timestamp tsEnd = new java.sql.Timestamp(date.getTime() + 3600 );
@@ -53,22 +72,22 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
         
-        bwellSession.setSessionId(newSessionId);
-        bwellSession.setSessionStart(tsStart);
+        getBwellSession().setSessionId(newSessionId);
+        getBwellSession().setSessionStart(tsStart);
         // TODO: Write Server code to END stranded sessions.
         //bwellSession.setSessionEnd(tsEnd);
-        bwellSession.setSessionInitiator(MVCController.loggedInUser.getUserId() );
-        bwellSession.setSessionParticipant1Id(client.getUserId());
-        bwellSession.setSessionDescription("Session with " + MVCController.loggedInUser.getUsername() + " and " + client.getUsername() );
-        bwellSession.setSessionSummary("Session summary");        
+        getBwellSession().setSessionInitiator(MVCController.loggedInUser.getUserId() );
+        getBwellSession().setSessionParticipant1Id(getClient().getUserId());
+        getBwellSession().setSessionDescription("Session with " + MVCController.loggedInUser.getUsername() + " and " + getClient().getUsername() );
+        getBwellSession().setSessionSummary("Session summary");        
         // save the bwell session
-        System.out.println("startInRoomSession bwellSession = " + bwellSession);
+        System.out.println("startInRoomSession bwellSession = " + getBwellSession());
         HibernateUtil.getSessionFactory().openSession();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        session.saveOrUpdate(bwellSession);
+        session.saveOrUpdate(getBwellSession());
         session.getTransaction().commit();
-        
+        loadAnnotations();
         
     }
 
@@ -93,7 +112,6 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         jInternalFrame2 = new javax.swing.JInternalFrame();
         cameraStubImageLabel2 = new javax.swing.JLabel();
         textAnnotationButton = new javax.swing.JButton();
-        consultButton = new javax.swing.JButton();
         recordButton = new javax.swing.JButton();
         endEncounterButton = new javax.swing.JButton();
         discussionLabel = new javax.swing.JLabel();
@@ -106,6 +124,7 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
 
         HomeButton.setText("Home");
+        HomeButton.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("In Room Session");
@@ -145,8 +164,6 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
         );
 
         textAnnotationButton.setText("Add Annotation");
-
-        consultButton.setText("Consult");
 
         recordButton.setText("Record");
 
@@ -190,7 +207,7 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
                                         .addGap(37, 37, 37)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(discussionLabel)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(newChatMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,11 +215,11 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
                                         .addComponent(sendChatMessageButton))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(consultButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
+                                        .addGap(59, 59, 59)
                                         .addComponent(recordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(endEncounterButton))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(endEncounterButton)
+                                        .addGap(31, 31, 31))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
                                 .addComponent(cameraOneLabel)
@@ -241,7 +258,6 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
                     .addComponent(textAnnotationButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(consultButton)
                             .addComponent(recordButton)
                             .addComponent(endEncounterButton))
                         .addGap(17, 17, 17)
@@ -285,7 +301,6 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
     private javax.swing.JLabel cameraStubImageLabel1;
     private javax.swing.JLabel cameraStubImageLabel2;
     public javax.swing.JLabel cameraTwoLabel;
-    private javax.swing.JButton consultButton;
     private javax.swing.JLabel discussionLabel;
     private javax.swing.JButton endEncounterButton;
     private javax.swing.JInternalFrame jInternalFrame1;
@@ -300,6 +315,62 @@ public class InRoomSessionPanel extends javax.swing.JPanel {
     private javax.swing.JList previousEncounterList;
     private javax.swing.JButton recordButton;
     private javax.swing.JButton sendChatMessageButton;
-    private javax.swing.JButton textAnnotationButton;
+    public javax.swing.JButton textAnnotationButton;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the initatingUser
+     */
+    public Users getInitatingUser() {
+        return initatingUser;
+    }
+
+    /**
+     * @param initatingUser the initatingUser to set
+     */
+    public void setInitatingUser(Users initatingUser) {
+        this.initatingUser = initatingUser;
+    }
+
+    /**
+     * @return the client
+     */
+    public Users getClient() {
+        return client;
+    }
+
+    /**
+     * @param client the client to set
+     */
+    public void setClient(Users client) {
+        this.client = client;
+    }
+
+    /**
+     * @return the bwellSession
+     */
+    public Sessions getBwellSession() {
+        return bwellSession;
+    }
+
+    /**
+     * @param bwellSession the bwellSession to set
+     */
+    public void setBwellSession(Sessions bwellSession) {
+        this.bwellSession = bwellSession;
+    }
+
+    /**
+     * @return the annotations
+     */
+    public List getAnnotations() {
+        return annotations;
+    }
+
+    /**
+     * @param annotations the annotations to set
+     */
+    public void setAnnotations(List annotations) {
+        this.annotations = annotations;
+    }
 }

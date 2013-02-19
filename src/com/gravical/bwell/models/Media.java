@@ -1,5 +1,5 @@
 package com.gravical.bwell.models;
-// Generated 15-Feb-2013 01:45:33 by Hibernate Tools 3.2.1.GA
+// Generated 19-Feb-2013 01:44:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;

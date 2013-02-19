@@ -1,5 +1,5 @@
 package com.gravical.bwell.models;
-// Generated 15-Feb-2013 01:45:33 by Hibernate Tools 3.2.1.GA
+// Generated 19-Feb-2013 01:44:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Annotations  implements java.io.Serializable {
      private int annotationId;
      private String annotationText;
      private Date annotationTs;
+     private Integer bwellSessionId;
 
     public Annotations() {
     }
@@ -21,10 +22,11 @@ public class Annotations  implements java.io.Serializable {
     public Annotations(int annotationId) {
         this.annotationId = annotationId;
     }
-    public Annotations(int annotationId, String annotationText, Date annotationTs) {
+    public Annotations(int annotationId, String annotationText, Date annotationTs, Integer bwellSessionId) {
        this.annotationId = annotationId;
        this.annotationText = annotationText;
        this.annotationTs = annotationTs;
+       this.bwellSessionId = bwellSessionId;
     }
    
     public int getAnnotationId() {
@@ -47,6 +49,13 @@ public class Annotations  implements java.io.Serializable {
     
     public void setAnnotationTs(Date annotationTs) {
         this.annotationTs = annotationTs;
+    }
+    public Integer getBwellSessionId() {
+        return this.bwellSessionId;
+    }
+    
+    public void setBwellSessionId(Integer bwellSessionId) {
+        this.bwellSessionId = bwellSessionId;
     }
 
 

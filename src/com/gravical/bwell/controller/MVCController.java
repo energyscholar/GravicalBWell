@@ -1,5 +1,6 @@
 package com.gravical.bwell.controller;
 
+import com.gravical.bwell.db.DBUtils;
 import com.gravical.bwell.db.PopulateSampleData;
 import com.gravical.bwell.models.Sessions;
 import com.gravical.bwell.models.Users;
@@ -205,12 +206,58 @@ public class MVCController {
                 int userIdSelected = user.getUserId();
                 System.out.println("startInRoomSessionActionListener detected userIdSelected =" + userIdSelected);
                 inRoomSessionPanel.cameraTwoLabel.setText(user.getFirstName() + " " + user.getLastName());
-                inRoomSessionPanel.client = user;
+                inRoomSessionPanel.setClient(user);
                 inRoomSessionPanel.startInRoomSession();
                 changeContentPane(inRoomSessionPanel);
             }
         };
 
+        // End an in-room session.  
+        ActionListener endEncounterButtonActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                DBUtils.endEncounter(inRoomSessionPanel.getBwellSession());
+                changeContentPane(mainMenuPanel);
+            }
+        };
+
+        // Record an in-room session.  Probably will be recorded.
+        ActionListener recordButtonActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Record Not supported yet.");
+            }
+        };
+
+        // Record an in-room session.  Probably will be recorded.
+        ActionListener textAnnotationButtonActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("textAnnotationButtonActionListener inRoomSessionPanel" + inRoomSessionPanel.getAnnotations() );
+                //throw new UnsupportedOperationException("Annotation Not supported yet.");
+            }
+        };
+
+        
+        
+        
+        // Start an in-room session.  Probably will be recorded.
+        ActionListener forceCloseSessionActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                  int rowSelected = 0;
+                rowSelected = supervisePanel.activeBWellSessionsTable.getSelectedRow();
+                Sessions bWellSession = (Sessions) supervisePanel.getBwellSessionsList().get(rowSelected);
+                int bWellSessionIdSelected = bWellSession.getSessionId();
+                System.out.println("ForceCloseButtonActionListener detected bWellSessionIdSelected =" + bWellSessionIdSelected);
+                // TODO: Add code to actually force the session to close
+                DBUtils.endEncounter(bWellSession);
+                supervisePanel.loadBwellSessions();
+                supervisePanel.displayResult(supervisePanel.getBwellSessionsList());                        
+          }
+        };
+        
+        
         // Start an in-room session.  Probably will be recorded.
         ActionListener remoteSessionActionListener = new ActionListener() {
             @Override
@@ -282,10 +329,15 @@ public class MVCController {
         startSessionPanel.HomeButtonActionListener(homeActionListener);
         startSessionPanel.startInRoomSessionButtonActionListener(startInRoomSessionActionListener);
         startSessionPanel.startRemoteSessionButtonActionListener(startRemoteSessionActionListener);
-
+        
         this.inRoomSessionPanel.HomeButtonActionListener(homeActionListener);
+        inRoomSessionPanel.EndEncounterButtonActionListener(endEncounterButtonActionListener);
+        inRoomSessionPanel.RecordButtonActionListener(recordButtonActionListener);
+        inRoomSessionPanel.TextAnnotationButtonActionListener(textAnnotationButtonActionListener);
+        
         this.remoteSessionPanel.HomeButtonActionListener(homeActionListener);
 
+        
         userAdministrationPanel.HomeButtonActionListener(homeActionListener);
         userAdministrationPanel.SettingsButtonActionListener(settingsActionListener);
         userAdministrationPanel.LogoutButtonActionListener(logoutActionListener);
@@ -330,12 +382,7 @@ public class MVCController {
             }
         });
 
-        supervisePanel.ForceCloseButtonActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Force Close Not supported yet.");
-            }
-        });
+        supervisePanel.ForceCloseButtonActionListener(forceCloseSessionActionListener);
 
         supervisePanel.CancelButtonActionListener(new ActionListener() {
             @Override
